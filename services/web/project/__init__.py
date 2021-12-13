@@ -1,4 +1,3 @@
-from project import views
 from dataclasses import dataclass
 
 from flask import Flask, jsonify
@@ -17,3 +16,9 @@ class User(db.Model):
 
     def __init__(self, email: str) -> None:
         self.email = email
+
+
+@app.get("/")
+def read_root():
+    users = User.query.all()
+    return jsonify(users)
