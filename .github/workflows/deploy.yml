@@ -13,7 +13,8 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
-  +     passphrase: ${{ secrets.PASSPHRASE }}
+        passphrase: ${{ secrets.PASSPHRASE }}
+        script_stop: true
         script: |
           cd docker/sentiment
           git pull
