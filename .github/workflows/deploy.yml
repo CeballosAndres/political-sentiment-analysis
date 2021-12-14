@@ -11,8 +11,10 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
+        key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
+  +     passphrase: ${{ secrets.PASSPHRASE }}
+        script_stop: true
         script: |
           cd docker/sentiment
           git pull
