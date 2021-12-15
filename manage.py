@@ -1,22 +1,27 @@
+from dotenv import load_dotenv
 from flask.cli import FlaskGroup
 
-from project import User, app, db
+from project import app, database
 
 cli = FlaskGroup(app)
 
 
 @cli.command("create_db")
 def create_db():
-    db.drop_all()
-    db.create_all()
-    db.session.commit()
+    my_connection = database.test_database()
+    cursor = my_connection.cursor()
+    cursor.execute(
+        "create table test (nombre varchar(50), apellido varchar(50)) ")
+    my_connection.commit()
 
 
 @cli.command("seed_db")  # new
 def seed_db():
-    db.session.add(User(email="michael@mherman.org"))
-    db.session.add(User(email="test@example.com"))
-    db.session.commit()
+    my_connection = database.test_database()
+    cursor = my_connection.cursor()
+    cursor.execute(
+        """insert into test (nombre, apellido) values ("andres","ceballos")""")
+    my_connection.commit()
 
 
 if __name__ == "__main__":
