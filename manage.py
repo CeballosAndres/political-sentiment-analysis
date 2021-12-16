@@ -1,10 +1,12 @@
 from dotenv import load_dotenv
 from flask.cli import FlaskGroup
-
 from project import app, database
+import os
 
 cli = FlaskGroup(app)
 
+project_folder = os.path.expanduser('./')
+load_dotenv(os.path.join(project_folder, '.env'))
 
 @cli.command("create_db")
 def create_db():
