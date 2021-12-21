@@ -1,5 +1,5 @@
 """Schema for comment"""
-from schemas.schema import Schema
+from project.schemas.schema import Schema
 
 class CommentSchema(Schema):
     """Schema for comment"""

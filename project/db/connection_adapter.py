@@ -1,13 +1,14 @@
 """Module for connection to database"""
 import pymysql
+import os
 
 class ConnectionAdapter():
     """Generic connector for database queries"""
     def __init__(self):
-        self.__host = ""
-        self.__user = ""
-        self.__password = ""
-        self.__db = ""
+        self.__host = os.environ.get("MYSQL_HOST")
+        self.__user = os.environ.get("MYSQL_USER")
+        self.__password = os.environ.get("MYSQL_PASSWORD")
+        self.__db = os.environ.get("MYSQL_DATABASE") 
         self.connection = None
 
     def cursor(self):

@@ -1,4 +1,4 @@
-from db.connection_adapter import ConnectionAdapter
+from project.db.connection_adapter import ConnectionAdapter
 
 class Schema():
     """Generic Schema"""
@@ -24,3 +24,33 @@ class Schema():
         result = self.cursor.fetchall()
         self.connection.commit()
         return result
+
+
+    def parse_sql(self, filename):
+        data = open(filename, 'r').readlines()
+        stmts = []
+        DELIMITER = ';'
+        stmt = ''
+
+        for lineno, line in enumerate(data):
+            if not line.strip():
+                continue
+
+            if line.startswith('--') or line.startswith('/*'):
+                continue
+
+            if 'DELIMITER' in line:
+                DELIMITER = line.split()[1]
+                continue
+
+            if (DELIMITER not in line):
+                stmt += line.replace(DELIMITER, ';')
+                continue
+
+            if stmt:
+                stmt += line
+                stmts.append(stmt.strip())
+                stmt = ''
+            else:
+                stmts.append(line.strip())
+        return stmts

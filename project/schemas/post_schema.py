@@ -1,5 +1,5 @@
 """Schema for post"""
-from schemas.schema import Schema
+from project.schemas.schema import Schema
 
 class PostSchema(Schema):
     """Schema for post"""

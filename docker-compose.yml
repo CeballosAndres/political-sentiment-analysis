@@ -15,7 +15,7 @@ services:
     container_name: sentiment-db
     image: mysql
     ports:
-      - "32000:3306"
+      - "3306:3306"
     restart: always
     environment:
       - MYSQL_DATABASE=$MYSQL_DATABASE

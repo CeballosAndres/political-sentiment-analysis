@@ -1,5 +1,5 @@
 """Schema for page"""
-from schemas.schema import Schema
+from project.schemas.schema import Schema
 
 class PageSchema(Schema):
     """Schema for page"""
