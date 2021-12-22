@@ -1,6 +1,5 @@
 # Proyecto de Ciencia de Datos
-
-## TL;TR
+ Sistema que permite subir archivos con información limpia de diferentes candidatos para realizar análisis de sentimientos sobre los comentarios de los seguidores de su página de Facebook.
 
 ## Levantar entorno local
 
@@ -21,7 +20,8 @@
 - (opcional) Cargar datos de prueba a base de datos `docker-compose exec sentiment-app python manage.py seed_db`
 - Ingresar a `127.0.0.1:4000`. En macOs Monterey el puerto 5000 es usado por el sistema, por lo que en docker-compose.yml se redirige del 4000 al 5000 para Flask.
 
+## Staging 
+- Disponible en https://dev-sentiment.ceballos.dev
+
 ## Producción
 - Disponible en https://sentiment.ceballos.dev
-
-## Referencias
