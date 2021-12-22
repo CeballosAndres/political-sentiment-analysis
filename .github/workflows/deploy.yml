@@ -14,6 +14,12 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+    - name: Set env var (prod)
+      if: endsWith(github.ref, '/main')
+      run: echo "DEPLOY_SH=deploy-prod.sh" >> $GITHUB_ENV
+    - name: Set env var (dev)
+      if: endsWith(github.ref, '/develop')
+      run: echo "DEPLOY_SH=deploy-develop.sh" >> $GITHUB_ENV
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
       with:
@@ -25,4 +31,4 @@ jobs:
         script_stop: true
         script: |
           cd ${{ secrets.PROJECT_PATH }}
-          sh deploy-${GITHUB_REF##*/}.sh
+          sh ${{ env.DEPLOY_SH }} 
