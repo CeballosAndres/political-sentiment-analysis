@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.cluster import KMeans, AgglomerativeClustering
-from yellowbrick.cluster import KElbowVisualizer
 
 class Cluster:
     def __init__(self, data = None):
@@ -31,11 +30,8 @@ class Cluster:
         data = self.data.filter(targets, axis=1)
         data = self.categorical_to_numerical(data)
         data = self.scaler_values(data)
-        # Elbow method to find numbers of clusters to make
-        elbow = KElbowVisualizer(KMeans(), k=10)
-        elbow.fit(data)
         # Initiating the Agglomerative Clustering model 
-        agg_cluster = AgglomerativeClustering(n_clusters = elbow.elbow_value_)
+        agg_cluster = AgglomerativeClustering(n_clusters = 4)
         # fit model and predict clusters
         cluster_values = agg_cluster.fit_predict(data)
         self.data["clusters"] = cluster_values
