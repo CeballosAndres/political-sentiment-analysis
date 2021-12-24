@@ -60,3 +60,27 @@ class AppController():
         migrator.insert_page()
         migrator.insert_posts()
         migrator.insert_comments()
+
+    def get_algorithm_info(self):
+        """FUNCTION IN DEVELOPMENT PROCESS. It will be finished when 
+        filters could be received from frontend"""
+        query = f"""SELECT 
+                c.from_name,
+                c.gender,
+                c.created_date,
+                c.created_time,
+                c.reactions,
+                c.feeling
+                FROM {self.__comment_schema.table_name} c"""
+        data = self.__comment_schema.exec_query(query)
+        df = pd.DataFrame(columns=[
+            "from_name",
+            "gender",
+            "created_date",
+            "created_time",
+            "reactions",
+            "feeling"
+        ])
+        for resource in data:
+            df = df.append(resource, ignore_index=True)
+        return df

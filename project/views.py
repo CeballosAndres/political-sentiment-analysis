@@ -23,3 +23,9 @@ def insert_data():
     CONTROLLER = AppController()
     data = CONTROLLER.insert_data_from_file()
     return render_template("index.html", value=data)
+
+@app.get("/algorithm_info")
+def get_algorithm_info():
+    """Show possible filter fields. ONLY DEVELOPMENT METHOD, DELETE IN PRODUCTION"""
+    CONTROLLER = AppController()
+    return render_template("index.html", value=CONTROLLER.get_algorithm_info())

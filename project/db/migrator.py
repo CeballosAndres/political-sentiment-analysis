@@ -90,17 +90,21 @@ class Migrator():
         """Insert post data from file"""
         df_post = self.convert_post()
         post_schema = PostSchema()
+        data = []
         for i in range(len(df_post)):
-            data = df_post.iloc[i].values.tolist()
-            post_schema.insert(data)
+            row = df_post.iloc[i].values.tolist()
+            data.append(row)
+        post_schema.multi_insert(data)
 
     def insert_comments(self):
         """Insert comment data from file"""
         df_comment = self.convert_comment()
         comment_schema = CommentSchema()
+        data = []
         for i in range(len(df_comment)):
-            data = df_comment.iloc[i].values.tolist()
-            comment_schema.insert(data)
+            row = df_comment.iloc[i].values.tolist()
+            data.append(row)
+        comment_schema.multi_insert(data)
 
     @property
     def __page_columns(self):
