@@ -47,7 +47,7 @@ CREATE TABLE `comment` (
 --
 
 CREATE TABLE `page` (
-  `page_id` bigint(20) NOT NULL,
+  `page_id` int(11) NOT NULL,
   `page_name` varchar(50) DEFAULT NULL,
   `page_name_id` varchar(50) DEFAULT NULL,
   `political_party` varchar(50) DEFAULT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE `post` (
   `react_wow` int(11) DEFAULT NULL,
   `react_care` int(11) DEFAULT NULL,
   `share` int(11) DEFAULT NULL,
-  `page_id` bigint(20) NOT NULL
+  `page_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -110,6 +110,11 @@ ALTER TABLE `post`
 ALTER TABLE `comment`
   MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
+-- AUTO_INCREMENT de la tabla `page`
+--
+ALTER TABLE `page`
+  MODIFY `page_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  
 --
 -- Restricciones para tablas volcadas
 --
