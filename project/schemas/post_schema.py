@@ -8,6 +8,20 @@ class PostSchema(Schema):
         super().__init__()
         self.table_name = "post"
 
+    def show(self, data):
+        """Returns row in db, only works with varchar data for now
+
+        Args:
+            data (dict): Contains name of field and value for search
+
+        Returns:
+            dict: Requested row from DB
+        """
+        field = list(data.keys())[0]
+        query = f"""SELECT * FROM {self.table_name}
+                    WHERE {field} = '{data[field]}'"""
+        return self.exec_query(query)[0]
+
     def insert(self, data):
         """Insert data into post"""
         query = f""" INSERT INTO {self.table_name}(
@@ -25,7 +39,7 @@ class PostSchema(Schema):
                 page_id
             )
             VALUES(
-                {data[0]},
+                '{data[0]}',
                 '{data[1]}',
                 '{data[2]}',
                 {data[3]},
@@ -43,7 +57,8 @@ class PostSchema(Schema):
 
     def multi_insert(self, data):
         """Insert multiple lines into post"""
-        page_ids = PageSchema().get_field_list("page_id")
+        page_schema = PageSchema()
+        page_ids = page_schema.get_field_list("page_id")
         query = f"""INSERT INTO {self.table_name}(
                 post_id,
                 created_date,
@@ -61,9 +76,10 @@ class PostSchema(Schema):
             VALUES
         """
         for i in range(len(data)):
-            if data[i][11] in page_ids:
+            if str(data[i][11]) in page_ids:
+                page_id = page_schema.show({"page_id":data[i][11]})
                 query += f"""(
-                    {data[i][0]},
+                    '{data[i][0]}',
                     '{data[i][1]}',
                     '{data[i][2]}',
                     {data[i][3]},
@@ -74,7 +90,7 @@ class PostSchema(Schema):
                     {data[i][8]},
                     {data[i][9]},
                     {data[i][10]},
-                    {data[i][11]}
+                    {page_id["id"]}
                 )"""
                 if i == len(data)-1:
                     query += ";"

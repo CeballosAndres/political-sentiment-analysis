@@ -69,7 +69,8 @@ class Migrator():
                     comments[self.comment_columns[4]],
                     comments[self.comment_columns[5]],
                     comments[self.comment_columns[6]],
-                    comments[self.comment_columns[7]]
+                    comments[self.comment_columns[7]],
+                    comments[self.comment_columns[8]]
                 )
             ),
             columns=self.comment_columns
@@ -105,6 +106,11 @@ class Migrator():
             row = df_comment.iloc[i].values.tolist()
             data.append(row)
         comment_schema.multi_insert(data)
+
+    
+    def file_to_dataframe(self):
+        return self.file.parse("Comments")
+
 
     @property
     def __page_columns(self):
@@ -145,5 +151,6 @@ class Migrator():
             "created_date",
             "created_time",
             "reactions",
-            "post_id"
+            "post_id",
+            "feeling"
         ]
