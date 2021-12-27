@@ -28,14 +28,15 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `comment` (
-  `comment_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `comment_id` varchar(20) NOT NULL UNIQUE,
   `profile_id` bigint(20) DEFAULT NULL,
-  `from_name` varchar(50) DEFAULT NULL,
+  `from_name` varchar(500) DEFAULT NULL,
   `gender` char(1) DEFAULT NULL,
   `created_date` date DEFAULT NULL,
   `created_time` time DEFAULT NULL,
   `reactions` int(11) DEFAULT NULL,
-  `post_id` bigint(20) NOT NULL,
+  `post_id` int NOT NULL,
   `feeling` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -47,7 +48,8 @@ CREATE TABLE `comment` (
 --
 
 CREATE TABLE `page` (
-  `page_id` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `page_id` varchar(20) NOT NULL UNIQUE,
   `page_name` varchar(50) DEFAULT NULL,
   `page_name_id` varchar(50) DEFAULT NULL,
   `political_party` varchar(50) DEFAULT NULL,
@@ -62,7 +64,8 @@ CREATE TABLE `page` (
 --
 
 CREATE TABLE `post` (
-  `post_id` bigint(20) NOT NULL,
+  `id` int NOT NULL,
+  `post_id` varchar(20) NOT NULL UNIQUE,
   `created_date` date DEFAULT NULL,
   `created_time` time DEFAULT NULL,
   `react_angry` int(11) DEFAULT NULL,
@@ -73,7 +76,7 @@ CREATE TABLE `post` (
   `react_wow` int(11) DEFAULT NULL,
   `react_care` int(11) DEFAULT NULL,
   `share` int(11) DEFAULT NULL,
-  `page_id` int(11) NOT NULL
+  `page_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -84,20 +87,20 @@ CREATE TABLE `post` (
 -- Indices de la tabla `comment`
 --
 ALTER TABLE `comment`
-  ADD PRIMARY KEY (`comment_id`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `post_id` (`post_id`);
 
 --
 -- Indices de la tabla `page`
 --
 ALTER TABLE `page`
-  ADD PRIMARY KEY (`page_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `post`
 --
 ALTER TABLE `post`
-  ADD PRIMARY KEY (`post_id`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `page_id` (`page_id`);
 
 --
@@ -108,12 +111,16 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT de la tabla `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 -- AUTO_INCREMENT de la tabla `page`
 --
 ALTER TABLE `page`
-  MODIFY `page_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+-- AUTO_INCREMENT de la tabla `post`
+--
+ALTER TABLE `post`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
   
 --
 -- Restricciones para tablas volcadas
@@ -123,13 +130,13 @@ ALTER TABLE `page`
 -- Filtros para la tabla `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `post_id` FOREIGN KEY (`post_id`) REFERENCES `post` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_post` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `post`
 --
 ALTER TABLE `post`
-  ADD CONSTRAINT `page_id` FOREIGN KEY (`page_id`) REFERENCES `page` (`page_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_page` FOREIGN KEY (`page_id`) REFERENCES `page` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

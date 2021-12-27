@@ -22,7 +22,7 @@ class CommentSchema(Schema):
                 feeling
             )
             VALUES(
-                {data[0]},
+                '{data[0]}',
                 {data[1]},
                 '{data[2]}',
                 '{data[3]}',
@@ -37,7 +37,8 @@ class CommentSchema(Schema):
 
     def multi_insert(self, data):
         """Insert multiple lines into comment"""
-        post_ids = PostSchema().get_field_list("post_id")
+        post_schema = PostSchema()
+        post_ids = post_schema.get_field_list("post_id")
         query = f"""INSERT INTO {self.table_name}(
                 comment_id,
                 profile_id,
@@ -46,23 +47,22 @@ class CommentSchema(Schema):
                 created_date,
                 created_time,
                 reactions,
-                post_id,
-                feeling
+                post_id
             )
             VALUES
         """
         for i in range(len(data)):
-            if data[i][7] in post_ids:
+            if str(data[i][7]) in post_ids:
+                post_id = post_schema.show({"post_id":data[i][7]})
                 query += f"""(
-                    {data[i][0]},
+                    '{data[i][0]}',
                     {data[i][1]},
                     '{data[i][2]}',
                     '{data[i][3]}',
                     '{data[i][4]}',
                     '{data[i][5]}',
                     {data[i][6]},
-                    {data[i][7]},
-                    {data[i][8]}
+                    {post_id["id"]}
                 )"""
                 if i == len(data)-1:
                     query += ";"
