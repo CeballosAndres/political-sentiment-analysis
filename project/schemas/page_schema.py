@@ -19,9 +19,24 @@ class PageSchema(Schema):
         query = f"SELECT DISTINCT {field} FROM {self.table_name}"
         return self.exec_query(query)
 
+    def show(self, data):
+        """Returns row in db, only works with varchar data for now
+
+        Args:
+            data (dict): Contains name of field and value for search
+
+        Returns:
+            dict: Requested row from DB
+        """
+        field = list(data.keys())[0]
+        query = f"""SELECT * FROM {self.table_name}
+                    WHERE {field} = '{data[field]}'"""
+        return self.exec_query(query)[0]
+
     def insert(self, data):
         """Insert data into page"""
         query = f""" INSERT INTO {self.table_name}(
+                page_id,
                 page_name,
                 page_name_id,
                 political_party,
@@ -29,11 +44,12 @@ class PageSchema(Schema):
                 region
             )
             VALUES(
+                '{data[0]}',
                 '{data[1]}',
                 '{data[2]}',
                 '{data[3]}',
                 '{data[4]}',
                 '{data[5]}'
-            )
+            );
         """
         return self.exec_query(query)
