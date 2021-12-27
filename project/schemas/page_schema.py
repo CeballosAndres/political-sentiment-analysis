@@ -18,3 +18,24 @@ class PageSchema(Schema):
         """
         query = f"SELECT DISTINCT {field} FROM {self.table_name}"
         return self.exec_query(query)
+
+    def insert(self, data):
+        """Insert data into page"""
+        query = f""" INSERT INTO {self.table_name}(
+                page_id,
+                page_name,
+                page_name_id,
+                political_party,
+                kind,
+                region
+            )
+            VALUES(
+                {data[0]},
+                '{data[1]}',
+                '{data[2]}',
+                '{data[3]}',
+                '{data[4]}',
+                '{data[5]}'
+            )
+        """
+        return self.exec_query(query)
