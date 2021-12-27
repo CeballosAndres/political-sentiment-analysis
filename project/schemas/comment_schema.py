@@ -18,7 +18,8 @@ class CommentSchema(Schema):
                 created_date,
                 created_time,
                 reactions,
-                post_id
+                post_id,
+                feeling
             )
             VALUES(
                 {data[0]},
@@ -28,7 +29,8 @@ class CommentSchema(Schema):
                 '{data[4]}',
                 '{data[5]}',
                 {data[6]},
-                {data[7]}
+                {data[7]},
+                {data[8]}
             )
         """
         self.exec_query(query)
@@ -44,7 +46,8 @@ class CommentSchema(Schema):
                 created_date,
                 created_time,
                 reactions,
-                post_id
+                post_id,
+                feeling
             )
             VALUES
         """
@@ -58,7 +61,8 @@ class CommentSchema(Schema):
                     '{data[i][4]}',
                     '{data[i][5]}',
                     {data[i][6]},
-                    {data[i][7]}
+                    {data[i][7]},
+                    {data[i][8]}
                 )"""
                 if i == len(data)-1:
                     query += ";"

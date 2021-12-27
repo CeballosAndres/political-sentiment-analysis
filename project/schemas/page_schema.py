@@ -22,7 +22,6 @@ class PageSchema(Schema):
     def insert(self, data):
         """Insert data into page"""
         query = f""" INSERT INTO {self.table_name}(
-                page_id,
                 page_name,
                 page_name_id,
                 political_party,
@@ -30,7 +29,6 @@ class PageSchema(Schema):
                 region
             )
             VALUES(
-                {data[0]},
                 '{data[1]}',
                 '{data[2]}',
                 '{data[3]}',

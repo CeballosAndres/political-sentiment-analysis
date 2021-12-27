@@ -25,13 +25,13 @@ class Cluster:
         return scaled_data
 
 
-    def get_clustering(self, targets):
+    def get_clustering(self, targets, n_clusters):
         # Remove columns 
         data = self.data.filter(targets, axis=1)
         data = self.categorical_to_numerical(data)
         data = self.scaler_values(data)
         # Initiating the Agglomerative Clustering model 
-        agg_cluster = AgglomerativeClustering(n_clusters = 4)
+        agg_cluster = AgglomerativeClustering(n_clusters = n_clusters)
         # fit model and predict clusters
         cluster_values = agg_cluster.fit_predict(data)
         self.data["clusters"] = cluster_values
