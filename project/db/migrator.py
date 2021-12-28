@@ -48,6 +48,7 @@ class Migrator():
                     posts[self.post_columns[9]],
                     posts[self.post_columns[10]],
                     posts[self.post_columns[11]],
+                    posts[self.post_columns[12]],
                 )
             ),
             columns=self.post_columns
@@ -70,7 +71,8 @@ class Migrator():
                     comments[self.comment_columns[5]],
                     comments[self.comment_columns[6]],
                     comments[self.comment_columns[7]],
-                    comments[self.comment_columns[8]]
+                    comments[self.comment_columns[8]],
+                    comments[self.comment_columns[9]],
                 )
             ),
             columns=self.comment_columns
@@ -130,6 +132,7 @@ class Migrator():
             "post_id",
             "created_date",
             "created_time",
+            "message",
             "react_angry",
             "react_haha",
             "react_like",
@@ -147,6 +150,7 @@ class Migrator():
             "comment_id",
             "profile_id",
             "from_name",
+            "message",
             "gender",
             "created_date",
             "created_time",

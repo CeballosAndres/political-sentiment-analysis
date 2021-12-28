@@ -14,6 +14,7 @@ class CommentSchema(Schema):
                 comment_id,
                 profile_id,
                 from_name,
+                message,
                 gender,
                 created_date,
                 created_time,
@@ -28,9 +29,10 @@ class CommentSchema(Schema):
                 '{data[3]}',
                 '{data[4]}',
                 '{data[5]}',
-                {data[6]},
+                '{data[6]}',
                 {data[7]},
-                {data[8]}
+                {data[8]},
+                {data[9]}
             )
         """
         self.exec_query(query)
@@ -43,6 +45,7 @@ class CommentSchema(Schema):
                 comment_id,
                 profile_id,
                 from_name,
+                message,
                 gender,
                 created_date,
                 created_time,
@@ -52,8 +55,8 @@ class CommentSchema(Schema):
             VALUES
         """
         for i in range(len(data)):
-            if str(data[i][7]) in post_ids:
-                post_id = post_schema.show({"post_id":data[i][7]})
+            if str(data[i][8]) in post_ids:
+                post_id = post_schema.show({"post_id":data[i][8]})
                 query += f"""(
                     '{data[i][0]}',
                     {data[i][1]},
@@ -61,7 +64,8 @@ class CommentSchema(Schema):
                     '{data[i][3]}',
                     '{data[i][4]}',
                     '{data[i][5]}',
-                    {data[i][6]},
+                    '{data[i][6]}',
+                    {data[i][7]},
                     {post_id["id"]}
                 )"""
                 if i == len(data)-1:
