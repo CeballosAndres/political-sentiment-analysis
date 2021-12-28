@@ -40,7 +40,8 @@ class CommentSchema(Schema):
     def multi_insert(self, data):
         """Insert multiple lines into comment"""
         post_schema = PostSchema()
-        post_id = post_schema.show({"post_id":data[0][8]})
+        post_ids = post_schema.get_field_list("post_id")
+        old_post_id = 0
         query = f"""INSERT INTO {self.table_name}(
                 comment_id,
                 profile_id,
@@ -56,21 +57,25 @@ class CommentSchema(Schema):
             VALUES
         """
         for i in range(len(data)):
-            query += f"""(
-                '{data[i][0]}',
-                {data[i][1]},
-                '{data[i][2]}',
-                '{data[i][3]}',
-                '{data[i][4]}',
-                '{data[i][5]}',
-                '{data[i][6]}',
-                {data[i][7]},
-                {post_id["id"]},
-                '{data[i][9]}'
-            )"""
-            if i == len(data)-1:
-                query += ";"
-            else:
-                query += ","
-        print(query)
+            post_facebook_id = data[i][8]
+            if str(post_facebook_id) in post_ids:
+                if old_post_id != post_facebook_id:
+                    old_post_id = post_facebook_id
+                    post_id = post_schema.show({"post_id":post_facebook_id})["id"]
+                query += f"""(
+                    '{data[i][0]}',
+                    {data[i][1]},
+                    '{data[i][2]}',
+                    '{data[i][3]}',
+                    '{data[i][4]}',
+                    '{data[i][5]}',
+                    '{data[i][6]}',
+                    {data[i][7]},
+                    {post_id},
+                    '{data[i][9]}'
+                )"""
+                if i == len(data)-1:
+                    query += ";"
+                else:
+                    query += ","
         self.exec_query(query)
