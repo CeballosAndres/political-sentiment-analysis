@@ -57,6 +57,7 @@ class AppController():
     def insert_data_from_file(self):
         """Read an uploaded file and insert data form it into DB"""
         migrator = Migrator("project/static/04 Datos Limpios.xlsx")
+        migrator.clean_dataframe()
         migrator.insert_page()
         migrator.insert_posts()
         migrator.insert_comments()

@@ -28,6 +28,7 @@ class PostSchema(Schema):
                 post_id,
                 created_date,
                 created_time,
+                message,
                 react_angry,
                 react_haha,
                 react_like,
@@ -42,7 +43,7 @@ class PostSchema(Schema):
                 '{data[0]}',
                 '{data[1]}',
                 '{data[2]}',
-                {data[3]},
+                '{data[3]}',
                 {data[4]},
                 {data[5]},
                 {data[6]},
@@ -50,7 +51,8 @@ class PostSchema(Schema):
                 {data[8]},
                 {data[9]},
                 {data[10]},
-                {data[11]}
+                {data[11]},
+                {data[12]},
             )
         """
         self.exec_query(query)
@@ -63,6 +65,7 @@ class PostSchema(Schema):
                 post_id,
                 created_date,
                 created_time,
+                message,
                 react_angry,
                 react_haha,
                 react_like,
@@ -76,13 +79,13 @@ class PostSchema(Schema):
             VALUES
         """
         for i in range(len(data)):
-            if str(data[i][11]) in page_ids:
-                page_id = page_schema.show({"page_id":data[i][11]})
+            if str(data[i][12]) in page_ids:
+                page_id = page_schema.show({"page_id":data[i][12]})
                 query += f"""(
                     '{data[i][0]}',
                     '{data[i][1]}',
                     '{data[i][2]}',
-                    {data[i][3]},
+                    '{data[i][3]}',
                     {data[i][4]},
                     {data[i][5]},
                     {data[i][6]},
@@ -90,6 +93,7 @@ class PostSchema(Schema):
                     {data[i][8]},
                     {data[i][9]},
                     {data[i][10]},
+                    {data[i][11]},
                     {page_id["id"]}
                 )"""
                 if i == len(data)-1:
