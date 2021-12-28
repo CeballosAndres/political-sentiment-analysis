@@ -1,5 +1,6 @@
 """Module of migration"""
 import pandas as pd
+import re
 from project.schemas.page_schema import PageSchema
 from project.schemas.post_schema import PostSchema
 from project.schemas.comment_schema import CommentSchema
@@ -8,22 +9,43 @@ class Migrator():
     """Object for migrate data"""
     def __init__(self, path):
         self.file = pd.ExcelFile(path)
+        self.file_comments = self.file.parse("Comments")
+        self.file_posts = self.file.parse("Posts")
         self.page_columns = self.__page_columns
         self.post_columns = self.__post_columns
         self.comment_columns = self.__comment_columns
+        
+
+    def clean_dataframe(self):
+        self.file_posts['message'] = self.file_posts['message'].apply(self.clean_text) 
+        self.file_comments['message'] = self.file_comments['message'].apply(self.clean_text) 
+        self.file_comments =  self.file_comments[self.file_comments['message'] != ''].reset_index(drop=True)
+        
+    
+    def clean_text(self, text):
+        text = str(text)
+        text = re.sub(r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))", '', text)
+        text = re.sub(r'@[A-Za-z0-9]+', '', text) # para menciones
+        text = re.sub(r'#[A-Za-z0-9]+', '', text)
+        text = re.sub(r'[\.\,\'\"]', ' ', text)
+        text = re.sub(r'\n', ' ', text)
+        text = re.sub(r'RT[\s]+', '', text)
+        text = re.sub(r'\[PHOTO\]','', text)
+        text = " ".join(text.split())
+        return text
+
 
     def convert_page(self):
         """Recieves file as an argument and returns DataFrame"""
-        posts = self.file.parse("Posts")
         df_page = pd.DataFrame(
             list(
                 zip(
-                    posts[self.page_columns[0]],
-                    posts[self.page_columns[1]],
-                    posts[self.page_columns[2]],
-                    posts[self.page_columns[3]],
-                    posts[self.page_columns[4]],
-                    posts[self.page_columns[5]],
+                    self.file_posts[self.page_columns[0]],
+                    self.file_posts[self.page_columns[1]],
+                    self.file_posts[self.page_columns[2]],
+                    self.file_posts[self.page_columns[3]],
+                    self.file_posts[self.page_columns[4]],
+                    self.file_posts[self.page_columns[5]],
                 )
             ),
             columns=self.page_columns
@@ -32,23 +54,22 @@ class Migrator():
 
     def convert_post(self):
         """Recieves file as an argument and returns DataFrame"""
-        posts = self.file.parse("Posts")
         df_post = pd.DataFrame(
             list(
                 zip(
-                    posts[self.post_columns[0]],
-                    posts[self.post_columns[1]],
-                    posts[self.post_columns[2]],
-                    posts[self.post_columns[3]],
-                    posts[self.post_columns[4]],
-                    posts[self.post_columns[5]],
-                    posts[self.post_columns[6]],
-                    posts[self.post_columns[7]],
-                    posts[self.post_columns[8]],
-                    posts[self.post_columns[9]],
-                    posts[self.post_columns[10]],
-                    posts[self.post_columns[11]],
-                    posts[self.post_columns[12]],
+                    self.file_posts[self.post_columns[0]],
+                    self.file_posts[self.post_columns[1]],
+                    self.file_posts[self.post_columns[2]],
+                    self.file_posts[self.post_columns[3]],
+                    self.file_posts[self.post_columns[4]],
+                    self.file_posts[self.post_columns[5]],
+                    self.file_posts[self.post_columns[6]],
+                    self.file_posts[self.post_columns[7]],
+                    self.file_posts[self.post_columns[8]],
+                    self.file_posts[self.post_columns[9]],
+                    self.file_posts[self.post_columns[10]],
+                    self.file_posts[self.post_columns[11]],
+                    self.file_posts[self.post_columns[12]],
                 )
             ),
             columns=self.post_columns
@@ -59,20 +80,19 @@ class Migrator():
 
     def convert_comment(self):
         """Recieves file and returns DataFrame"""
-        comments = self.file.parse("Comments")
         df_comment = pd.DataFrame(
             list(
                 zip(
-                    comments[self.comment_columns[0]],
-                    comments[self.comment_columns[1]],
-                    comments[self.comment_columns[2]],
-                    comments[self.comment_columns[3]],
-                    comments[self.comment_columns[4]],
-                    comments[self.comment_columns[5]],
-                    comments[self.comment_columns[6]],
-                    comments[self.comment_columns[7]],
-                    comments[self.comment_columns[8]],
-                    comments[self.comment_columns[9]],
+                    self.file_comments[self.comment_columns[0]],
+                    self.file_comments[self.comment_columns[1]],
+                    self.file_comments[self.comment_columns[2]],
+                    self.file_comments[self.comment_columns[3]],
+                    self.file_comments[self.comment_columns[4]],
+                    self.file_comments[self.comment_columns[5]],
+                    self.file_comments[self.comment_columns[6]],
+                    self.file_comments[self.comment_columns[7]],
+                    self.file_comments[self.comment_columns[8]],
+                    self.file_comments[self.comment_columns[9]],
                 )
             ),
             columns=self.comment_columns
