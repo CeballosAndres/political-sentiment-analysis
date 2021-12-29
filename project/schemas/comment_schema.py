@@ -41,7 +41,7 @@ class CommentSchema(Schema):
         """Insert multiple lines into comment"""
         post_schema = PostSchema()
         post_ids = post_schema.get_field_list("post_id")
-        old_post_id = 0
+        posts = post_schema.exec_query("SELECT id, post_id FROM post")
         query = f"""INSERT INTO {self.table_name}(
                 comment_id,
                 profile_id,
@@ -57,11 +57,12 @@ class CommentSchema(Schema):
             VALUES
         """
         for i in range(len(data)):
-            post_facebook_id = data[i][8]
-            if str(post_facebook_id) in post_ids:
-                if old_post_id != post_facebook_id:
-                    old_post_id = post_facebook_id
-                    post_id = post_schema.show({"post_id":post_facebook_id})["id"]
+            post_facebook_id = str(data[i][8])
+            if post_facebook_id in post_ids:
+                post_id = None
+                for post in posts:
+                    if post["post_id"] == post_facebook_id:
+                        post_id = post["id"]
                 query += f"""(
                     '{data[i][0]}',
                     {data[i][1]},

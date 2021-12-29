@@ -61,6 +61,7 @@ class PostSchema(Schema):
         """Insert multiple lines into post"""
         page_schema = PageSchema()
         page_ids = page_schema.get_field_list("page_id")
+        pages = page_schema.exec_query("SELECT id, page_id FROM page")
         query = f"""INSERT INTO {self.table_name}(
                 post_id,
                 created_date,
@@ -79,8 +80,12 @@ class PostSchema(Schema):
             VALUES
         """
         for i in range(len(data)):
-            if str(data[i][12]) in page_ids:
-                page_id = page_schema.show({"page_id":data[i][12]})
+            page_facebook_id = str(data[i][12])
+            if page_facebook_id in page_ids:
+                page_id = None
+                for page in pages:
+                    if page["page_id"] == page_facebook_id:
+                        page_id = page["id"]
                 query += f"""(
                     '{data[i][0]}',
                     '{data[i][1]}',
@@ -94,7 +99,7 @@ class PostSchema(Schema):
                     {data[i][9]},
                     {data[i][10]},
                     {data[i][11]},
-                    {page_id["id"]}
+                    {page_id}
                 )"""
                 if i == len(data)-1:
                     query += ";"
