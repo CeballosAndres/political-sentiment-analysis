@@ -1,9 +1,9 @@
-from flask import render_template
+from flask import render_template, request
 from project import app
 from project.app_controller import AppController
 from project.db.migrator import Migrator
 from project.datamining.clustering import Cluster
-
+import os
 
 @app.get("/")
 def index():
@@ -40,3 +40,25 @@ def clustering():
     df = migrator.file_to_dataframe()
     cluster = Cluster(df)
     return render_template("index.html", value=cluster.get_clustering(['gender','feeling'], 4))
+
+
+"""Method to show the graphs"""
+@app.get("/graphs")
+def graphs():
+    CONTROLLER = AppController()
+    return render_template("graficado.html")
+
+""" Method to test if the files are uploaded correctly"""
+@app.route("/upload", methods=["POST", "GET"])
+def upload():
+    if request.method == 'POST':
+        files = request.files.getlist("file")
+        for file in files:
+            file.save(os.path.join("./files_upload_folder", file.filename))
+          
+            print('Archivo subido ' + file.filename +
+                  ' correctamente!')
+        else:
+            print('Solo se aceptan archivos xlsx')
+        msg = 'se subio correctamente el archivo'+file.filename
+    return "<script>muestra_Alert('Exito!!', '"+msg+"', 1)</script>"
