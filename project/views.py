@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from project import app
 from project.app_controller import AppController
 from project.db.migrator import Migrator
@@ -29,8 +29,26 @@ def insert_data():
 @app.get("/algorithm_info")
 def get_algorithm_info():
     """Show possible filter fields. ONLY DEVELOPMENT METHOD, DELETE IN PRODUCTION"""
+    filters = {
+        "page_name": [
+            "Irene Herrera",
+            "Virgilio Mendoza"
+        ],
+        "political_party": [
+            "Partido Revolucionario Institucional",
+            "Partido Verde Ecologista"
+        ],
+        "kind": [
+            "Presidencia Municipal",
+            "Gobernatura"
+        ],
+        "region": [
+            "Estado Colima",
+            "Manzanillo"
+        ]
+    }
     CONTROLLER = AppController()
-    return render_template("index.html", value=CONTROLLER.get_algorithm_info())
+    return render_template("test.html", value=CONTROLLER.get_algorithm_info(filters))
 
 
 @app.get("/clustering")
