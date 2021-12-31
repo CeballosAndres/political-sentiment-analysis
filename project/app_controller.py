@@ -84,3 +84,9 @@ class AppController():
         for resource in data:
             df = df.append(resource, ignore_index=True)
         return df
+
+    def data_mining(self):
+        """Call the clustering algorithm and returns result data
+        """
+        cluster = Cluster(self.get_algorithm_info())
+        return cluster.get_clustering(['gender','feeling'], 4)
