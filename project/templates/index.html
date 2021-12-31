@@ -20,6 +20,8 @@
 	<!-- checkbox -->
 	<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+  <link rel="stylesheet" href="../static/css/chosen.min.css" />
+<script src="../static/js/chosen.jquery.min.js"></script>
 </head>
 <body>
 	<!-- preload -->
@@ -47,7 +49,7 @@
           <p class='p-2'style='text-align:center;'>Ciencia de datos Proyecto y Aplicación</p>
         </aside>
      </div>
-     <div class="columna2">
+     <div class="columna2" style="height: 100%;">
       <div class="columna2_2">
                     <h2 style="text-align:center;color: #555 !important;" class='mb-4'>Bienvenido al sistema de analisis de sentimientos</h2>
                     <p class='container text-secondary text-center'>Esta plataforma es creada con la finalidad de proporcionar al usuario la posibilidad de realizar un análisis de sentimientos a partir de documentos Excel.</p>
@@ -63,10 +65,11 @@
                     </div>
                     <center>
                       <div id="div_selec" class=' esconder  col-sm-4'>
-                        <span class='text-secondary'>Selecciona el candidato</span>
-                      <select class=" form-control mt-2 selec" id="selec_candidato"  >
-                         
-                      </select>
+                        <span class='text-secondary'>Selecciona el filtro</span>
+                       
+                         <select class="chzn-select form-control mt-2 selec" multiple id='selec_candidato' data-placeholder="Selecciona filtros">
+                             
+                          </select>
                     </div>
                     </center>
                     <aks-file-upload id='subidor'></aks-file-upload>
@@ -84,6 +87,7 @@
 		  }, 1000);   
     }
     $( document ).ready(function() {   
+       
   //valida que el checkbox 
     if($('#checkbox1').prop("checked")==true){
       setTimeout(function() { 
@@ -92,11 +96,26 @@
       }, 500);
       }
   //llena el selec de candidatos
-      let datos=({ candidato,tojson })
-      for(x=0;x<datos.candidato.length;x++){  
+      let datos={{ candidato|tojson }};
+       
+       for (const [clave, valor] of Object.entries(datos)) {
+           /*  let hola = valor.split(',') */
+             
+            
+            let op;
+            for(x=0;x<valor.length;x++){
+               op=$('<option value="'+clave+'-'+valor[x]+'">'+valor[x]+'</option>')
+               $('#selec_candidato').append(op)
+            }
+               
+            
+          }
+      /* for(x=0;x<datos.candidato.length;x++){  
         let op=$('<option value="'+datos.id[x]+'">'+datos.candidato[x]+'</option>')
         $('#selec_candidato').append(op)
-      }
+      } */
+      
+      $("#selec_candidato").chosen({no_results_text: "Sin resultados para:"}); 
 });
     //cambiar el checkbox1
     function cambia_check(obj){
@@ -108,7 +127,7 @@
         $('#div_selec').removeClass('esconder')
       }
     }
-  //funcion que inicai el upload de archivos 
+  //funcion que inicia el upload de archivos 
     $(function() {
         $("aks-file-upload").aksFileUpload({
             fileUpload: "#uploadfile",
@@ -131,8 +150,8 @@
                 async: true,
                 enctype: "multipart/form-data",
                 success: function(response) {
-                    console.log(response);
-                    console.log('holl');
+                   /*  console.log(response);
+                    console.log('holl'); */
                 }
             },
         });
@@ -140,10 +159,40 @@
 //funcion que valida para poder entrar a la url de graficas
 function continua(){
   if($('#div_selec').is(":visible")){
-    window.open('/graphs?candidato='+$('#selec_candidato').val(),"_self");
+    if($('#selec_candidato').val()!=''){
+      let auxiliar_selec=$('#selec_candidato').val();
+      var jsonArr = [];
+      let arrkind=[];
+      let arrpage_name=[];
+      let arrpolitical_party=[];
+      let arrregion=[];
+      for(x=0;x<$('#selec_candidato').val().length;x++){
+       
+       if(auxiliar_selec[x].split('-')[0]=='kind'){
+          arrkind.push(auxiliar_selec[x].split('-')[1])
+       }else if(auxiliar_selec[x].split('-')[0]=='page_name'){
+          arrpage_name.push(auxiliar_selec[x].split('-')[1])
+       }else if(auxiliar_selec[x].split('-')[0]=='political_party'){
+          arrpolitical_party.push(auxiliar_selec[x].split('-')[1])
+       }else if(auxiliar_selec[x].split('-')[0]=='region'){
+          arrregion.push(auxiliar_selec[x].split('-')[1])
+       } 
+      }
+      jsonArr.push({
+            kind:arrkind,
+            page_name:arrpage_name,
+            political_party:arrpolitical_party,
+            region:arrregion, 
+        });
+        console.log(jsonArr)
+     window.open('/chart?filtro='+jsonArr,"_self");
+    }else{
+      muestra_Alert('Atención','Debe de seleccionar un filtro antes de continuar',5)
+    }
+    
   }else{
     if($(".aks-file-upload-preview").length!=0){
-        window.open('/graphs',"_self");
+        window.open('/chart',"_self");
       }else{
         muestra_Alert('Atención','Debe de ingresar un documento antes de continuar',5)
       }
@@ -167,5 +216,8 @@ function muestra_Alert(title, msj, tipo) {
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
     body {
       font-family: 'Poppins', sans-serif;
+    }
+    #selec_candidato_chosen{
+      width:100% !important;
     }
 </style>

@@ -56,13 +56,68 @@ body{
 		 z-index: 2;
      top:0;
 }
+    @media screen and (max-width:1278px){
+    .columna2_2 .graficas {
+    grid-column-gap: 0;
+    }
+    
+}
+    @media screen and (max-width:1240px){
+    .columna2_2 .graficas {
+    grid-template-columns: 100%;
+
+}
+.grafica {
+    width: 100%;
+    min-width: 700px;
+    min-height: 350px;
+    margin: auto;
+}
+.columna2_2 .graficas {
+
+    grid-row-gap: 50px;
+
+}
+}
+    
+    
      @media screen and (max-width:1200px){
     .img{
           width:8%;
         }
     }
-     
+    @media screen and (max-width:965px){
+            .grafica {
+          width: 100%;
+          min-width: 500px;
+          min-height: 250px;
+          margin: auto;
+      }
+    }
+    @media screen and (max-width:800px){
+     .columna1{
+      display:none;
+    }
+    .gridprincipal .columna2 {
+    padding-left: 0;
+
+}
+    .haside2{
+          display:flex ;
+          padding-top: 20px;
+          padding-bottom: 10px;
+        }
+        .divfoo{
+         left: 50% !important;
+         margin-left: 5px;
+         
+    }
+    }
      @media screen and (max-width:600px){
+       .divfoo{
+      flex-direction: column;
+         
+    }
        .columna2_2 .divfoo .textfoo {
              margin-bottom: 0;
         }
@@ -76,12 +131,7 @@ body{
      #div_boton{
         margin-top: 6px !important;
      }
-    .divfoo{
-      flex-direction: column;
-         left: 50% !important;
-         margin-left: 5px;
-         
-    }
+    
     .toast {
       position: static;
       margin-left: 10px !important;
@@ -93,19 +143,13 @@ body{
       padding-left: 10px;
       padding-right: 10px;
     }
-    .haside2{
-      display:flex ;
-      padding-top: 20px;
-      padding-bottom: 10px;
-    }
+    
     aside{
       display:none;
       
 
     }
-    .columna1{
-      display:none;
-    }
+    
     .gridprincipal{
       grid-template-columns: 100%;
     }
@@ -113,6 +157,22 @@ body{
           width:10%;
         
     }
+  }
+  @media screen and (max-width:543px){
+    .graficas .grafica {
+        max-width: 400px;
+        max-height: 270px;
+    }
+  }
+  @media screen and (max-width:506px){
+    .graficas .grafica {
+    min-width: 320px;
+    min-height: 230px;
+}
+.graficas .grafica {
+max-width: 400px;
+max-height: 180px;
+}
   }
   @media screen and (max-width:380px){
     .divfoo .textfoo{
@@ -270,6 +330,11 @@ aside{
 }
 .columna2_2{
   padding-top: 60px;
+  width: 100%;
+}
+.columna1{
+  position: fixed;
+width: 240px;
 }
 .columna1 aside{
   display: flex;
@@ -297,9 +362,27 @@ position: relative;
 }
 .grafica{
  width:100%;
- max-width:700px
+ max-width:500px;
+ max-height: 300px;
+  margin: auto;
 }
 .selec{
   cursor:pointer;
 }
- 
+.columna2{
+  display: flex;
+  padding-left: 240px;
+  width: 100%;
+  position: absolute;
+  height: auto;
+}
+.graficas {
+    display: grid;
+     grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    justify-content: center;
+}
+.bs4ToastWrapper{
+  z-index: 2;
+}
