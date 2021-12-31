@@ -6,7 +6,7 @@ class Schema():
         self.connection = ConnectionAdapter()
         self.table_name = None
         self.cursor = None
-    
+
     def get_all(self):
         """Returns all registers from table"""
         self.cursor = self.connection.cursor()
@@ -16,6 +16,14 @@ class Schema():
         result = self.cursor.fetchall()
         self.connection.commit()
         return result
+
+    def get_field_list(self, field):
+        """Returns data from a column as a list"""
+        data = self.get_all()
+        fields = []
+        for resource in data:
+            fields.append(resource[field])
+        return fields
 
     def exec_query(self, query):
         """Function for make query"""
