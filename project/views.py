@@ -73,10 +73,10 @@ def get_algorithm_info():
 @app.get("/clustering")
 def clustering():
    """ Show dataframe with clusters. ONLY DEVELOPMENT METHOD, DELETE IN PRODUCTION """
-    migrator = Migrator('./project/static/04 Datos Limpios.xlsx')
-    df = migrator.file_to_dataframe()
-    cluster = Cluster(df)
-    return render_template("index.html", value=cluster.get_clustering(['gender','feeling'], 4))
+   migrator = Migrator('./project/static/04 Datos Limpios.xlsx')
+   df = migrator.file_to_dataframe()
+   cluster = Cluster(df)
+   return render_template("index.html", value=cluster.get_clustering(['gender','feeling'], 4))
 
 
 """Method to show the graphs"""
