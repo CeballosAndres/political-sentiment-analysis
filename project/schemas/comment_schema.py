@@ -14,6 +14,7 @@ class CommentSchema(Schema):
                 comment_id,
                 profile_id,
                 from_name,
+                message,
                 gender,
                 created_date,
                 created_time,
@@ -28,9 +29,10 @@ class CommentSchema(Schema):
                 '{data[3]}',
                 '{data[4]}',
                 '{data[5]}',
-                {data[6]},
+                '{data[6]}',
                 {data[7]},
-                {data[8]}
+                {data[8]},
+                {data[9]}
             )
         """
         self.exec_query(query)
@@ -39,21 +41,28 @@ class CommentSchema(Schema):
         """Insert multiple lines into comment"""
         post_schema = PostSchema()
         post_ids = post_schema.get_field_list("post_id")
+        posts = post_schema.exec_query("SELECT id, post_id FROM post")
         query = f"""INSERT INTO {self.table_name}(
                 comment_id,
                 profile_id,
                 from_name,
+                message,
                 gender,
                 created_date,
                 created_time,
                 reactions,
-                post_id
+                post_id,
+                feeling
             )
             VALUES
         """
         for i in range(len(data)):
-            if str(data[i][7]) in post_ids:
-                post_id = post_schema.show({"post_id":data[i][7]})
+            post_facebook_id = str(data[i][8])
+            if post_facebook_id in post_ids:
+                post_id = None
+                for post in posts:
+                    if post["post_id"] == post_facebook_id:
+                        post_id = post["id"]
                 query += f"""(
                     '{data[i][0]}',
                     {data[i][1]},
@@ -61,8 +70,10 @@ class CommentSchema(Schema):
                     '{data[i][3]}',
                     '{data[i][4]}',
                     '{data[i][5]}',
-                    {data[i][6]},
-                    {post_id["id"]}
+                    '{data[i][6]}',
+                    {data[i][7]},
+                    {post_id},
+                    '{data[i][9]}'
                 )"""
                 if i == len(data)-1:
                     query += ";"
