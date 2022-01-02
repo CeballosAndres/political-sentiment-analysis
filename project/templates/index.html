@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Análisis de Sentimientos</title>
+	<title>Analisis de Sentimientos</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 	</script>
 	<script src="../static/js/aksFileUpload.min.js"></script>
@@ -44,14 +44,14 @@
    <div class="gridprincipal">
      <div class="columna1">
         <aside class='border-0 pt-5'>
-         <p class='p-2'style='text-align:center;'>Tecnológico Nacional de México Campus Colima</p>
+         <p class='p-2'style='text-align:center;'>Tecnologico Nacional de México Campus Colima</p>
           <img  id="imgnav" src="../static/img/itcolima.svg" width="70%">
           <p class='p-2'style='text-align:center;'>Ciencia de datos Proyecto y Aplicación</p>
         </aside>
      </div>
      <div class="columna2" style="height: 100%;">
       <div class="columna2_2">
-                    <h2 style="text-align:center;color: #555 !important;" class='mb-4'>Bienvenido al sistema de análisis de sentimientos</h2>
+                    <h2 style="text-align:center;color: #555 !important;" class='mb-4'>Bienvenido al sistema de analisis de sentimientos</h2>
                     <p class='container text-secondary text-center'>Esta plataforma es creada con la finalidad de proporcionar al usuario la posibilidad de realizar un análisis de sentimientos a partir de documentos Excel.</p>
                     <div class='d-flex justify-content-center mb-4 mt-4'>
                       <img class='img pb-2' src="../static/img/img_subir.png" alt=""> 
@@ -65,7 +65,7 @@
                     </div>
                     <center>
                       <div id="div_selec" class=' esconder  col-sm-4'>
-                        <span class='text-secondary'>Seleccione el filtro</span>
+                        <span class='text-secondary'>Selecciona el filtro</span>
                        
                          <select class="chzn-select form-control mt-2 selec" multiple id='selec_candidato' data-placeholder="Selecciona filtros">
                              
@@ -75,7 +75,7 @@
                     <aks-file-upload id='subidor'></aks-file-upload>
                     <p hidden id="uploadfile" type="json" name='archivos'></p>
                   <div id="div_boton" class='d-flex justify-content-center mt-3'><button class='bt btn border-0 mt-2' style="background: #05397b;" onclick='continua()'>Continuar</button></div>
-       <div class="divfoo"><p class="textfoo">© 2021 Copyright: </p><a href="https://www.colima.tecnm.mx/" target="_blank"><p class="textfoo">&nbsp;Tecnológico nacional de México Campus Colima </p></a></div>
+       <div class="divfoo"><p class="textfoo">© 2021 Copyright: </p><a href="https://www.colima.tecnm.mx/" target="_blank"><p class="textfoo">&nbsp;Tecnologico nacional de México Campus Colima </p></a></div>
       </div>
   </div>
 </body>
@@ -95,28 +95,38 @@
         $('#checkbox1').click()
       }, 500);
       }
-  //llena el selec de candidatos
-      let datos={{ candidato|tojson }};
-       
+  
+   llena_selec()
+      
+     
+});
+//llena el selec de candidatos
+ function llena_selec(){
+   let datos={{ candidato|tojson }};
+   let auxkind=$('<optgroup class="border-top group_selec" label="Categoría"><optgroup>')
+   let auxpage_name=$('<optgroup class="border-top group_selec" label="Nombre de la Página"><optgroup>')
+   let auxpolitical_party=$('<optgroup class="border-top group_selec" label="Partido político"><optgroup>')
+   let auxregion=$('<optgroup class="border-top group_selec" label="Región"><optgroup>')    
        for (const [clave, valor] of Object.entries(datos)) {
            /*  let hola = valor.split(',') */
-             
-            
             let op;
+            
             for(x=0;x<valor.length;x++){
                op=$('<option value="'+clave+'-'+valor[x]+'">'+valor[x]+'</option>')
-               $('#selec_candidato').append(op)
+               if(clave=='kind'){
+                  auxkind.append(op)
+               }else if(clave=='page_name'){
+                  auxpage_name.append(op)
+               }else if(clave=='political_party'){
+                  auxpolitical_party.append(op) 
+               }else if(clave=='region'){
+                  auxregion.append(op)
+               }
             }
-               
-            
+            $('#selec_candidato').append([auxkind,auxpage_name,auxpolitical_party,auxregion])
           }
-      /* for(x=0;x<datos.candidato.length;x++){  
-        let op=$('<option value="'+datos.id[x]+'">'+datos.candidato[x]+'</option>')
-        $('#selec_candidato').append(op)
-      } */
-      
-      $("#selec_candidato").chosen({no_results_text: "Sin resultados para:"}); 
-});
+           $("#selec_candidato").chosen({no_results_text: "Sin resultados para:"});
+ }
     //cambiar el checkbox1
     function cambia_check(obj){
       if($(obj.parentNode).hasClass("off")){
@@ -136,7 +146,7 @@
             maxSize: "90 GB",
             multiple: false,
             maxFile: 50,
-            label: "Arrastra y suelta tus archivos o selecciónalo dando click aquí",
+            label: "Arrastra y suelta tus archivos o seleccionalo dando click aqui",
             fileTypeError: "Es un tipo de archivo no aceptado.",
             ajaxUpload: true,
             ajax: {
@@ -179,8 +189,9 @@ function continua(){
        } 
       }
       jsonArr.push({
-            kind:arrkind,
+            
             page_name:arrpage_name,
+            kind:arrkind,
             political_party:arrpolitical_party,
             region:arrregion, 
         });
