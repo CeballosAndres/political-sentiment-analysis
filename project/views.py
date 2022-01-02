@@ -1,4 +1,4 @@
-from flask import render_template, request, jsonify
+from flask import render_template, request
 from project import app
 from project.app_controller import AppController
 from project.db.migrator import Migrator
@@ -52,7 +52,7 @@ def get_algorithm_info():
     CONTROLLER = AppController()
     return render_template("test.html", value=CONTROLLER.get_algorithm_info(filters))
 
-
+    
 @app.get("/clustering")
 def clustering():
     """Show dataframe with clusters. ONLY DEVELOPMENT METHOD, DELETE IN PRODUCTION"""
@@ -60,6 +60,7 @@ def clustering():
     df = migrator.file_to_dataframe()
     cluster = Cluster(df)
     return render_template("test.html", value=cluster.get_clustering(['gender','feeling'], 4))
+
 
 
 """Method to show the graphs"""
