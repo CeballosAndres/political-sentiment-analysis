@@ -386,3 +386,11 @@ position: relative;
 .bs4ToastWrapper{
   z-index: 2;
 }
+.group_selec{
+  text-align:start;
+  font-size: 16px;
+  color: gray;
+}
+.group-option{
+  text-align:start !important;
+}
