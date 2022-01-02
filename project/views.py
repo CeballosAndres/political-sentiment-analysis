@@ -1,4 +1,4 @@
-from flask import render_template, request, jsonify
+from flask import render_template, request
 from project import app
 from project.app_controller import AppController
 from project.db.migrator import Migrator
