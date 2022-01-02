@@ -67,9 +67,9 @@
         <h2 style="text-align:center;color: #555 !important;" class='mb-4'>Apartado grafico</h2>
         <p class='container text-secondary text-center'>En esta sección se encontrara los datos estadísticos del resultado de procesamiento de datos.</p><br>
         <center>
-          <div class='container mb-5' style="width: 50%;">
+          <div class='container mb-5'>
           <center>
-          <span class='text-secondary'>Selecciona el filtro</span>
+          <span class='text-secondary'>Selecciona el filtro</span><br>
           <select class="chzn-select form-control mt-2 selec" multiple id='selec_candidato' data-placeholder="Selecciona filtros"></select>
         </center>
         </div>
@@ -94,12 +94,29 @@
 <script>
     window.onload = function() {
   //lineas de codigo que toma los datos y llama a la funcion de graficado
-      setTimeout(function() {
-        $("#candidatos").chosen();
+      setTimeout(function() {   
 		  $('.div-preload').attr('style', 'display:none');
-      barColors = ["#fd9d48", "#fd6648","#ffd160"];
+      llamado()
+     
+		  }, 1000);   
+    }
+//onchange de filtros
+$('#selec_candidato').change(function() {
+  if($('#selec_candidato').val()!=''){
+    consulta_ajax_grafica()
+  }else{
+    llamado()
+  }
+ 
+});
+ function llamado(){
+        llena_graficas({{ dato|tojson }})
+      }
+//llena graficas
+function llena_graficas(datos){
+   barColors = ["#fd9d48", "#fd6648","#ffd160"];
       borColors = ["#ff7800", "#fc2a00","#fcb300"];
-      let datos={{ dato|tojson }};
+       
       let clust=[];
       let totalClust=[];
       let clust1=[];
@@ -110,7 +127,6 @@
       for(x=0;x<4;x++){
           clust.push(datos.clusters[x].name)
           totalClust.push(datos.clusters[x].total_elements)
-          
           let obj1=(datos.clusters[x].count_values[0].feeling)
           let obj2=(datos.clusters[x].count_values[1].gender)
           let arrF1=[]
@@ -125,35 +141,82 @@
           for (const [clave, valor] of Object.entries(obj2)) {
               arrG1.push(clave);
               arrG2.push(valor);  
-          }
-           
+          } 
           armachart('f'+x,arrF1,arrF2,barColors,borColors,'doughnut','Sentimientos Cluster '+x)
-          armachart('g'+x,arrG1,arrG2,barColors,borColors,'pie','Generos del Cluster '+x)
-           
-           
-         /*  console.log(datos.clusters[x].count_values[0].feeling) 
-          console.log(datos.clusters[x].count_values[1].gender) */ 
+          armachart('g'+x,arrG1,arrG2,barColors,borColors,'pie','Generos del Cluster '+x) 
       } 
-      console.log(clust)
-      console.log(totalClust)
       armachart('tc',clust,totalClust,barColors,borColors,'bar','Cantidad de elementos clusters')
      // armachart('sentimientos',clust,totalClust,barColors,borColors,'bar','Cantidad de elementos clusters')
+}
+function consulta_ajax_grafica(){
+      let auxiliar_selec=$('#selec_candidato').val();
+      var jsonArr = [];
+      let arrkind=[];
+      let arrpage_name=[];
+      let arrpolitical_party=[];
+      let arrregion=[];
+      for(x=0;x<$('#selec_candidato').val().length;x++){
+       
+       if(auxiliar_selec[x].split('-')[0]=='kind'){
+          arrkind.push(auxiliar_selec[x].split('-')[1])
+       }else if(auxiliar_selec[x].split('-')[0]=='page_name'){
+          arrpage_name.push(auxiliar_selec[x].split('-')[1])
+       }else if(auxiliar_selec[x].split('-')[0]=='political_party'){
+          arrpolitical_party.push(auxiliar_selec[x].split('-')[1])
+       }else if(auxiliar_selec[x].split('-')[0]=='region'){
+          arrregion.push(auxiliar_selec[x].split('-')[1])
+       } 
+      }
+      jsonArr.push({
+            
+            page_name:arrpage_name,
+            kind:arrkind,
+            political_party:arrpolitical_party,
+            region:arrregion, 
+        });
+        console.log(jsonArr)
+        
+            /* $.ajax({
+            url:"/",
+            type:"POST",
+            data: {"filtro":jsonArr},
+            success: function(response){
+               llena_graficas({{ dato|tojson }})
 
-		}, 1000);   
-    }
-    llena_selec()
+            },
+            error: function(error){
+             
+            },
+            }); */
+}
+
+llena_selec()
+    //llena el selec de candidatos
  function llena_selec(){
    let datos={{ datos2|tojson }};
-       
+   let auxkind=$('<optgroup class="border-top group_selec" label="Categoría"><optgroup>')
+   let auxpage_name=$('<optgroup class="border-top group_selec" label="Nombre de la Página"><optgroup>')
+   let auxpolitical_party=$('<optgroup class="border-top group_selec" label="Partido político"><optgroup>')
+   let auxregion=$('<optgroup class="border-top group_selec" label="Región"><optgroup>')    
        for (const [clave, valor] of Object.entries(datos)) {
            /*  let hola = valor.split(',') */
             let op;
+            
             for(x=0;x<valor.length;x++){
                op=$('<option value="'+clave+'-'+valor[x]+'">'+valor[x]+'</option>')
-               $('#selec_candidato').append(op)
+               if(clave=='kind'){
+                  auxkind.append(op)
+               }else if(clave=='page_name'){
+                  auxpage_name.append(op)
+               }else if(clave=='political_party'){
+                  auxpolitical_party.append(op) 
+               }else if(clave=='region'){
+                  auxregion.append(op)
+               }
             }
+            $('#selec_candidato').append([auxkind,auxpage_name,auxpolitical_party,auxregion])
           }
-           $("#selec_candidato").chosen({no_results_text: "Sin resultados para:"});
+           $("#selec_candidato").chosen({no_results_text: "Sin resultados para:",width:'50%'});
  }
 //funcion que genera las graficas 
   function armachart(div,x,y,barColors,borColors,tipo,nombre){
@@ -397,4 +460,5 @@
     body {
       font-family: 'Poppins', sans-serif;
     }
+
 </style>
