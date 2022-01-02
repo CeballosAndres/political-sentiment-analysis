@@ -1,4 +1,5 @@
 """Controller module"""
+from numpy import integer
 import pandas as pd
 from project.db.migrator import Migrator
 from project.schemas.post_schema import PostSchema
@@ -58,8 +59,8 @@ class AppController():
         """Read an uploaded file and insert data form it into DB"""
         migrator = Migrator("project/static/04 Datos Limpios.xlsx")
         migrator.clean_dataframe()
-        migrator.insert_page()
-        migrator.insert_posts()
+        #migrator.insert_page()
+        #migrator.insert_posts()
         migrator.insert_comments()
 
     def get_algorithm_info(self, filters):
@@ -112,9 +113,16 @@ class AppController():
             "reactions",
             "feeling"
         ])
-        for resource in data:
-            df = df.append(resource, ignore_index=True)
-        return df
+        #for resource in data:
+         #   df = df.append(resource, ignore_index=True)
+        #return df
+        unidad = pd.DataFrame(data)
+        print(unidad)
+        
+
+
+
+        return unidad
 
     def __prepare_filters(self, filters, query):
         """
