@@ -173,3 +173,17 @@ function eliminar(id){
 $('#'+id).remove()
  
 } 
+
+//funcion que retona alertas del sistema
+function muestra_Alert(title, msj, tipo) {
+    let duracion=2000;
+      if (tipo == 1) {
+          bs4Toast.success(title, msj, {delay: duracion,})
+      } else if (tipo == 2) {
+          bs4Toast.primary(title, msj, {delay: duracion,})
+      } else if (tipo == 3) {
+          bs4Toast.warning(title, msj, {delay: duracion,})
+      } else {
+          bs4Toast.error(title, msj, {delay: duracion,})
+      }
+  }

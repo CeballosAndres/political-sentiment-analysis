@@ -114,6 +114,12 @@ body{
     }
     }
      @media screen and (max-width:600px){
+       .nube{
+          display:none;
+        }
+       .nube2{
+          display:block !important;
+        }
        .divfoo{
       flex-direction: column;
          
@@ -394,3 +400,22 @@ position: relative;
 .group-option{
   text-align:start !important;
 }
+.nube2{
+  display:none;
+  width: 95%;
+}
+.bt{
+        color:white !important;
+        box-shadow: 0 0 27px 0 rgba(84, 84, 84, 0.42); 
+        height:auto;
+        width:auto;
+        
+        cursor:pointer;
+    }
+    .bt:hover{
+        color:white !important;
+        -webkit-box-shadow: -1px 4px 15px 5px rgba(0,0,0,0.45);
+        -moz-box-shadow: -1px 4px 15px 5px rgba(0,0,0,0.45);
+        box-shadow: -1px 4px 15px 5px rgba(0,0,0,0.45);
+        
+    }

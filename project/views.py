@@ -5,6 +5,15 @@ from project.db.migrator import Migrator
 from project.datamining.clustering import Cluster
 import os
 
+UPLOAD_FOLDER = 'project/static/archivos/'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+ALLOWED_EXTENSIONS = set(['xlsx'])
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit(
+        '.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.get("/")
 def index():
     CONTROLLER = AppController()
@@ -25,8 +34,11 @@ def insert_data():
     """Call the insert_data_from_file function from controller.
     ONLY DEVELOPMENT METHOD, DELETE IN PRODUCTION"""
     CONTROLLER = AppController()
-    data = CONTROLLER.insert_data_from_file()
-    return render_template("index.html", value=data)
+    error = CONTROLLER.insert_data_from_file()
+    if error:
+      render_template("errores.html",error = error)
+
+    #return render_template("index.html", value=data)
 
 @app.get("/algorithm_info")
 def get_algorithm_info():
@@ -163,14 +175,22 @@ def graficado():
 """ Method to test if the files are uploaded correctly"""
 @app.route("/upload", methods=["POST", "GET"])
 def upload():
-    if request.method == 'POST':
-        files = request.files.getlist("file")
-        for file in files:
-            file.save(os.path.join("./files_upload_folder", file.filename))
-          
-            print('Archivo subido ' + file.filename +
-                  ' correctamente!')
-        else:
-            print('Solo se aceptan archivos xlsx')
-        msg = 'se subio correctamente el archivo'+file.filename
-    return "<script>muestra_Alert('Exito!!', '"+msg+"', 1)</script>"
+  CONTROLLER = AppController()
+  if request.method == 'POST':
+      files = request.files.getlist("file")
+      for file in files:
+
+          file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+          path="project/static/archivos/"+file.filename
+          error = CONTROLLER.insert_data_from_file(path)
+          print (error)
+          print (path)
+          if error:
+            render_template("errores.html",error = error)
+
+          print('Archivo subido ' + file.filename +
+                ' correctamente!')
+      else:
+          print('Solo se aceptan archivos xlsx')
+      msg = 'se subio correctamente el archivo'+file.filename
+  return "<script>muestra_Alert('Exito!!', '"+msg+"', 1)</script>"
