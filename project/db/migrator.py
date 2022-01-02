@@ -34,6 +34,48 @@ class Migrator():
         text = " ".join(text.split())
         return text
 
+    def verify_file_structure(self):
+        post_columns = [
+            "created_date",
+            "created_time",
+            "message",
+            "format",
+            "classification",
+            "page_id",
+            "page_name",
+            "page_name_id",
+            "post_id",
+            "react_angry",
+            "react_haha",
+            "react_like",
+            "react_love",
+            "react_sad",
+            "react_wow",
+            "react_care",
+            "share",
+            "political_party",
+            "region",
+            "kind"
+        ]
+        comment_columns = [
+            "post_id",
+            "comment_id",
+            "profile_id",
+            "created_date",
+            "created_time",
+            "from_name",
+            "message",
+            "gender",
+            "reactions",
+            "feeling"
+        ]
+        if (set(post_columns).issubset(set(self.file_posts.columns))
+                and
+                set(comment_columns).issubset(set(self.file_comments.columns))):
+            return {
+                "post": post_columns,
+                "comments": comment_columns
+            }
 
     def convert_page(self):
         """Recieves file as an argument and returns DataFrame"""

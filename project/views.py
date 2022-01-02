@@ -1,4 +1,4 @@
-from flask import render_template, request, jsonify
+from flask import render_template, request
 from project import app
 from project.app_controller import AppController
 from project.db.migrator import Migrator
@@ -10,24 +10,7 @@ def index():
     CONTROLLER = AppController()
     data = CONTROLLER.get_pages()
   #proporcioname los datos del candidato de la BDD (Nombre, id )
-    filtro = {
-             "page_name": [
-                "Irene Herrera",
-                "Virgilio Mendoza"
-                ],
-              "political_party": [
-                "Partido Revolucionario Institucional",
-                "Partido Verde Ecologista de México"
-                ],
-              "kind": [
-                "Presidencia Municipal",
-                "Gubernatura"
-                ],
-              "region": [
-                "Colima",
-                "Manzanillo"
-                ]
-    }
+    filtro = CONTROLLER.get_filters_fields()
     return render_template('index.html', candidato=filtro)
 
 
@@ -35,7 +18,7 @@ def index():
 def get_filter_fields():
     """Show possible filter fields. ONLY DEVELOPMENT METHOD, DELETE IN PRODUCTION"""
     CONTROLLER = AppController()
-    return render_template("index.html", value=CONTROLLER.get_filters_fields())
+    return render_template("test.html", value=CONTROLLER.get_filters_fields())
 
 @app.get("/insert_data_from_file")
 def insert_data():
@@ -69,21 +52,23 @@ def get_algorithm_info():
     CONTROLLER = AppController()
     return render_template("test.html", value=CONTROLLER.get_algorithm_info(filters))
 
-
+    
 @app.get("/clustering")
 def clustering():
     """Show dataframe with clusters. ONLY DEVELOPMENT METHOD, DELETE IN PRODUCTION"""
     migrator = Migrator('./project/static/04 Datos Limpios.xlsx')
     df = migrator.file_to_dataframe()
     cluster = Cluster(df)
-    return render_template("index.html", value=cluster.get_clustering(['gender','feeling'], 4))
+    return render_template("test.html", value=cluster.get_clustering(['gender','feeling'], 4))
+
 
 
 """Method to show the graphs"""
 @app.route('/chart')
 def graficado():
     CONTROLLER = AppController()
-    filtro = request.args.get('filtro')
+    filtro = CONTROLLER.get_filters_fields()
+    filtro1 = request.args.get('filtro')
     print('candidato:',filtro)
     #proporcioname los datos del candidato de la BDD (utiliza el id de la variable  'candidato' )
     data ={
@@ -172,24 +157,7 @@ def graficado():
     }
   ]
 }
-    filtro = {
-             "page_name": [
-                "Irene Herrera",
-                "Virgilio Mendoza"
-                ],
-              "political_party": [
-                "Partido Revolucionario Institucional",
-                "Partido Verde Ecologista de México"
-                ],
-              "kind": [
-                "Presidencia Municipal",
-                "Gubernatura"
-                ],
-              "region": [
-                "Colima",
-                "Manzanillo"
-                ]
-    }
+
     return render_template('graficado.html', dato=data,datos2=filtro)
 
 """ Method to test if the files are uploaded correctly"""
