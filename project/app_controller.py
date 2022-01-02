@@ -55,9 +55,15 @@ class AppController():
                 filters[field].append(data[field])
         return filters
 
-    def insert_data_from_file(self):
-        """Read an uploaded file and insert data form it into DB"""
-        migrator = Migrator("project/static/04 Datos Limpios.xlsx")
+    def insert_data_from_file(self, path):
+        """Read an uploaded file and insert data form it into DB
+        Args:
+            path (string): complete path where file is stored with filename too
+        """
+        migrator = Migrator(path)
+        error = migrator.verify_file_structure()
+        if error:
+            return error
         migrator.clean_dataframe()
         migrator.insert_page()
         migrator.insert_posts()
