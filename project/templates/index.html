@@ -33,7 +33,7 @@
             </div></div>
         </center>
       </div>
-      <input type="text" id='page_name'>
+      <input type="text" id='page_name' hidden="true">
  <!-- end-preload -->
  <div class=' haside2'style='background: #2b7abf; color:white;'>
         <img id="imghaside2" src="../static/img/itcolima.svg" >
@@ -202,14 +202,24 @@ function continua(){
             region:arrregion, 
         });
         console.log(jsonArr)
-     window.open('/chart?filtro='+jsonArr,"_self");
+     window.open('/chart?filtro='+JSON.stringify(jsonArr),"_self");
     }else{
       muestra_Alert('Atención','Debe de seleccionar un filtro antes de continuar',5)
     }
     
   }else{
     if($(".aks-file-upload-preview").length!=0){
-        window.open('/chart',"_self");
+      var jsonArr = [];
+      let nomb=[] 
+      nomb.push($("#page_name").val())
+      console.log(nomb)
+      jsonArr.push({
+                  page_name:nomb,
+                  kind:[],
+                  political_party:[],
+                  region:[], 
+              });
+      window.open('/chart?filtro=' + JSON.stringify(jsonArr), "_self");
       }else{
         muestra_Alert('Atención','Debe de ingresar un documento antes de continuar',5)
       }

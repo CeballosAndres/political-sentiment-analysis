@@ -8,7 +8,7 @@ from wordcloud import WordCloud
 class MyWordCloud:
     def __init__(self, comments=None):
         self.comments = comments.dropna()
-        self.c_sw = pd.read_csv('cstm_stopwords.csv')
+        self.c_sw = pd.read_csv('project/datamining/cstm_stopwords.csv')
         # obtain a list of not wanted words in spanish (castellanno)
         nltk.download('stopwords')
         self.stopwords_sp = set(stopwords.words('spanish'))
@@ -21,7 +21,7 @@ class MyWordCloud:
         wordcloud_ = WordCloud(min_word_length=4, background_color='white', max_words=max_words, stopwords=self.stopwords_sp,
                                collocations=True, width=width, height=height, colormap=colormap).generate(text)
         # Save generated wordcloud as image in static folder
-        wordcloud_.to_file('../static/img/%s.png' % filename)
+        wordcloud_.to_file('project/static/img/%s.png' % filename)
 
     def generate_wordcloud(self, max_words=30):
         # filter the candidate, and create a list of messages
@@ -32,7 +32,7 @@ class MyWordCloud:
         # Define custom Colormap
         cmap = ListedColormap(["#fd9d48", "#fd6648", "#ffd160"])
         # Call helper to save wordcloud images
-        for filename, width in zip(["foo", "foo1"], [6424, 3039]):
+        for filename, width in zip(["foo", "foo1"], [1025, 1025]):
             self.save_cloud(width, cmap, text, max_words, filename)
 
 

@@ -1,3 +1,4 @@
+import json
 from flask import render_template, request
 from project import app
 from project.app_controller import AppController
@@ -39,26 +40,9 @@ def insert_data():
 @app.get("/algorithm_info")
 def get_algorithm_info():
     """Show possible filter fields. ONLY DEVELOPMENT METHOD, DELETE IN PRODUCTION"""
-    filters = {
-        "page_name": [
-            "Irene Herrera",
-            "Virgilio Mendoza"
-        ],
-        "political_party": [
-            "Partido Revolucionario Institucional",
-            "Partido Verde Ecologista"
-        ],
-        "kind": [
-            "Presidencia Municipal",
-            "Gobernatura"
-        ],
-        "region": [
-            "Estado Colima",
-            "Manzanillo"
-        ]
-    }
     CONTROLLER = AppController()
-    return render_template("test.html", value=CONTROLLER.get_algorithm_info(filters))
+    filtro = CONTROLLER.get_filters_fields()
+    return render_template("test.html", value=CONTROLLER.get_algorithm_info(filtro))
 
     
 @app.get("/clustering")
@@ -75,98 +59,15 @@ def clustering():
 @app.route('/chart')
 def graficado():
     CONTROLLER = AppController()
-    filtro = CONTROLLER.get_filters_fields()
     filtro1 = request.args.get('filtro')
-    print('candidato:',filtro)
-    #proporcioname los datos del candidato de la BDD (utiliza el id de la variable  'candidato' )
-    data ={
-  "clusters_name": [
-    0,
-    1,
-    2,
-    3
-  ],
-  "clusters": [
-    {
-      "name": 0,
-      "total_elements": 1342,
-      "count_values": [
-        {
-          "feeling": {
-            "neutros": 700,
-            "positivo": 637,
-            "neutro": 5
-          }
-        },
-        {
-          "gender": {
-            "M": 831,
-            "H": 470,
-            "I": 24,
-            "O": 17
-          }
-        }
-      ]
-    },
-    {
-      "name": 1,
-      "total_elements": 7125,
-      "count_values": [
-        {
-          "feeling": {
-            "muy positivo": 6240,
-            "muy negativo": 849,
-            "negativo": 36
-          }
-        },
-        {
-          "gender": {
-            "H": 6855,
-            "I": 270
-          }
-        }
-      ]
-    },
-    {
-      "name": 2,
-      "total_elements": 10438,
-      "count_values": [
-        {
-          "feeling": {
-            "muy positivo": 10351,
-            "negativo": 63,
-            "muy negativo": 20,
-            "neutro": 4
-          }
-        },
-        {
-          "gender": {
-            "M": 10272,
-            "O": 166
-          }
-        }
-      ]
-    },
-    {
-      "name": 3,
-      "total_elements": 1351,
-      "count_values": [
-        {
-          "feeling": {
-            "muy negativo": 1351
-          }
-        },
-        {
-          "gender": {
-            "M": 1351
-          }
-        }
-      ]
-    }
-  ]
-}
+    filtro1 = json.loads(filtro1)[0]
+    print(filtro1)
+    metodo = CONTROLLER.get_algorithm_info(filtro1)
+    filtro = CONTROLLER.get_filters_fields()
 
-    return render_template('graficado.html', dato=data,datos2=filtro)
+    #proporcioname los datos del candidato de la BDD (utiliza el id de la variable  'candidato' )
+
+    return render_template('graficado.html', dato=metodo,datos2=filtro)
 
 """ Method to test if the files are uploaded correctly"""
 @app.route("/upload", methods=["POST", "GET"])
