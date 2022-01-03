@@ -19,7 +19,7 @@ class Migrator():
             self.comment_columns = self.__comment_columns
         
     def __validate_sheet_file(self):
-        return set(["Post", "Comments"]).issubset(set(self.file.sheet_names))    
+        return set(["Posts", "Comments"]).issubset(set(self.file.sheet_names))    
 
     def clean_dataframe(self):
         self.file_posts['message'] = self.file_posts['message'].apply(self.clean_text) 
@@ -74,7 +74,7 @@ class Migrator():
             "reactions",
             "feeling"
         ]
-        if (set(post_columns).issubset(set(self.file_posts.columns))
+        if not (set(post_columns).issubset(set(self.file_posts.columns))
                 and
                 set(comment_columns).issubset(set(self.file_comments.columns))):
             return {
