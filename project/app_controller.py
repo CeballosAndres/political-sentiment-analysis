@@ -5,6 +5,8 @@ from project.db.migrator import Migrator
 from project.schemas.post_schema import PostSchema
 from project.schemas.page_schema import PageSchema
 from project.schemas.comment_schema import CommentSchema
+from project.datamining.mywordcloud import MyWordCloud
+from project.datamining.clustering import Cluster
 
 class AppController():
     """Basic controller for backend app"""
@@ -61,6 +63,13 @@ class AppController():
             path (string): complete path where file is stored with filename too
         """
         migrator = Migrator(path)
+        if not migrator.is_right_file:
+            return {
+                "file_sheets":[
+                    "Posts",
+                    "Comments"
+                ]
+            }
         error = migrator.verify_file_structure()
         if error:
             return error
@@ -101,6 +110,7 @@ class AppController():
         query = f"""SELECT 
                 c.from_name,
                 c.gender,
+                c.message,
                 c.created_date,
                 c.created_time,
                 c.reactions,
@@ -111,16 +121,12 @@ class AppController():
                 {self.__prepare_filters(filters, "")}
                 """
         data = self.__comment_schema.exec_query(query)
-        df = pd.DataFrame(columns=[
-            "from_name",
-            "gender",
-            "created_date",
-            "created_time",
-            "reactions",
-            "feeling"
-        ])
-        unidad = pd.DataFrame(data)
-        return unidad
+        df = pd.DataFrame(data)
+        wordcloud = MyWordCloud(df)
+        wordcloud.generate_wordcloud()
+        del df["message"]
+        cluster = Cluster(df)
+        return cluster.get_clustering(["gender", "feeling"], 4)
 
     def __prepare_filters(self, filters, query):
         """
