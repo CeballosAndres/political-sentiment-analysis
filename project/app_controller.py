@@ -64,19 +64,15 @@ class AppController():
         """
         migrator = Migrator(path)
         if not migrator.is_right_file:
-            return {
-                "file_sheets":[
-                    "Posts",
-                    "Comments"
-                ]
-            }
+            return Exception()
         error = migrator.verify_file_structure()
         if error:
-            return error
+            return Exception()
         migrator.clean_dataframe()
-        migrator.insert_page()
+        page_name = migrator.insert_page()
         migrator.insert_posts()
         migrator.insert_comments()
+        return page_name
 
     def get_algorithm_info(self, filters):
         """

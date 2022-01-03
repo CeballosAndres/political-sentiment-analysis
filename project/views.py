@@ -5,6 +5,14 @@ from project.db.migrator import Migrator
 from project.datamining.clustering import Cluster
 import os
 
+UPLOAD_FOLDER = 'project/static/archivos/'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+ALLOWED_EXTENSIONS = set(['xlsx'])
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit(
+        '.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.get("/")
 def index():
     CONTROLLER = AppController()
@@ -163,14 +171,20 @@ def graficado():
 """ Method to test if the files are uploaded correctly"""
 @app.route("/upload", methods=["POST", "GET"])
 def upload():
-    if request.method == 'POST':
-        files = request.files.getlist("file")
-        for file in files:
-            file.save(os.path.join("./files_upload_folder", file.filename))
-          
-            print('Archivo subido ' + file.filename +
-                  ' correctamente!')
-        else:
-            print('Solo se aceptan archivos xlsx')
-        msg = 'se subio correctamente el archivo'+file.filename
-    return "<script>muestra_Alert('Exito!!', '"+msg+"', 1)</script>"
+  CONTROLLER = AppController()
+  if request.method == 'POST':
+      file = request.files.getlist("file")[0]
+      file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+      path="project/static/archivos/"+file.filename
+      data = CONTROLLER.insert_data_from_file(path)
+      if isinstance(data, Exception):
+        return "<script>window.open('/error','_self');</script>"
+      print('Archivo subido ' + file.filename +' correctamente!')
+      print(data)
+      msg = 'se subio correctamente el archivo'+file.filename
+      print(f"<script>exitoso('{msg}','{data}')</script>")
+      return f"<script>exitoso('{msg}','{data}')</script>"
+  
+@app.get("/error")
+def error():
+  return render_template("errores.html")

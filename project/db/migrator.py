@@ -12,8 +12,8 @@ class Migrator():
         self.is_right_file = False
         if self.__validate_sheet_file():
             self.is_right_file = True
-            self.file_comments = self.file.parse("Comments")
-            self.file_posts = self.file.parse("Posts")
+            self.file_comments = self.file.parse("Comments").dropna()
+            self.file_posts = self.file.parse("Posts").dropna()
             self.page_columns = self.__page_columns
             self.post_columns = self.__post_columns
             self.comment_columns = self.__comment_columns
@@ -155,6 +155,7 @@ class Migrator():
         data = df_page.iloc[0].values.tolist()
         page_schema = PageSchema()
         page_schema.insert(data)
+        return data[1]
 
     def insert_posts(self):
         """Insert post data from file"""
