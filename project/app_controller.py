@@ -1,9 +1,15 @@
 """Controller module"""
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
 import pandas as pd
 from project.db.migrator import Migrator
 from project.schemas.post_schema import PostSchema
 from project.schemas.page_schema import PageSchema
 from project.schemas.comment_schema import CommentSchema
+from project.datamining.mywordcloud import MyWordCloud
+from project.datamining.clustering import Cluster
 
 class AppController():
     """Basic controller for backend app"""
@@ -54,6 +60,24 @@ class AppController():
                 filters[field].append(data[field])
         return filters
 
+<<<<<<< HEAD
+    def insert_data_from_file(self, path):
+        """Read an uploaded file and insert data form it into DB
+        Args:
+            path (string): complete path where file is stored with filename too
+        """
+        migrator = Migrator(path)
+        if not migrator.is_right_file:
+            return Exception()
+        error = migrator.verify_file_structure()
+        if error:
+            return Exception()
+        migrator.clean_dataframe()
+        page_name = migrator.insert_page()
+        migrator.insert_posts()
+        migrator.insert_comments()
+        return page_name
+=======
     def insert_data_from_file(self):
         """Read an uploaded file and insert data form it into DB"""
         migrator = Migrator("project/static/04 Datos Limpios.xlsx")
@@ -61,6 +85,7 @@ class AppController():
         migrator.insert_page()
         migrator.insert_posts()
         migrator.insert_comments()
+>>>>>>> main
 
     def get_algorithm_info(self, filters):
         """
@@ -94,6 +119,10 @@ class AppController():
         query = f"""SELECT 
                 c.from_name,
                 c.gender,
+<<<<<<< HEAD
+                c.message,
+=======
+>>>>>>> main
                 c.created_date,
                 c.created_time,
                 c.reactions,
@@ -104,6 +133,14 @@ class AppController():
                 {self.__prepare_filters(filters, "")}
                 """
         data = self.__comment_schema.exec_query(query)
+<<<<<<< HEAD
+        df = pd.DataFrame(data)
+        wordcloud = MyWordCloud(df)
+        wordcloud.generate_wordcloud()
+        del df["message"]
+        cluster = Cluster(df)
+        return cluster.get_clustering(["gender", "feeling"], 4)
+=======
         df = pd.DataFrame(columns=[
             "from_name",
             "gender",
@@ -115,6 +152,7 @@ class AppController():
         for resource in data:
             df = df.append(resource, ignore_index=True)
         return df
+>>>>>>> main
 
     def __prepare_filters(self, filters, query):
         """

@@ -9,12 +9,26 @@ class Migrator():
     """Object for migrate data"""
     def __init__(self, path):
         self.file = pd.ExcelFile(path)
+<<<<<<< HEAD
+        self.is_right_file = False
+        if self.__validate_sheet_file():
+            self.is_right_file = True
+            self.file_comments = self.file.parse("Comments").dropna()
+            self.file_posts = self.file.parse("Posts").dropna()
+            self.page_columns = self.__page_columns
+            self.post_columns = self.__post_columns
+            self.comment_columns = self.__comment_columns
+        
+    def __validate_sheet_file(self):
+        return set(["Posts", "Comments"]).issubset(set(self.file.sheet_names))    
+=======
         self.file_comments = self.file.parse("Comments")
         self.file_posts = self.file.parse("Posts")
         self.page_columns = self.__page_columns
         self.post_columns = self.__post_columns
         self.comment_columns = self.__comment_columns
         
+>>>>>>> main
 
     def clean_dataframe(self):
         self.file_posts['message'] = self.file_posts['message'].apply(self.clean_text) 
@@ -34,6 +48,51 @@ class Migrator():
         text = " ".join(text.split())
         return text
 
+<<<<<<< HEAD
+    def verify_file_structure(self):
+        post_columns = [
+            "created_date",
+            "created_time",
+            "message",
+            "format",
+            "classification",
+            "page_id",
+            "page_name",
+            "page_name_id",
+            "post_id",
+            "react_angry",
+            "react_haha",
+            "react_like",
+            "react_love",
+            "react_sad",
+            "react_wow",
+            "react_care",
+            "share",
+            "political_party",
+            "region",
+            "kind"
+        ]
+        comment_columns = [
+            "post_id",
+            "comment_id",
+            "profile_id",
+            "created_date",
+            "created_time",
+            "from_name",
+            "message",
+            "gender",
+            "reactions",
+            "feeling"
+        ]
+        if not (set(post_columns).issubset(set(self.file_posts.columns))
+                and
+                set(comment_columns).issubset(set(self.file_comments.columns))):
+            return {
+                "post": post_columns,
+                "comments": comment_columns
+            }
+=======
+>>>>>>> main
 
     def convert_page(self):
         """Recieves file as an argument and returns DataFrame"""
@@ -108,6 +167,10 @@ class Migrator():
         data = df_page.iloc[0].values.tolist()
         page_schema = PageSchema()
         page_schema.insert(data)
+<<<<<<< HEAD
+        return data[1]
+=======
+>>>>>>> main
 
     def insert_posts(self):
         """Insert post data from file"""
