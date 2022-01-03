@@ -9,12 +9,17 @@ class Migrator():
     """Object for migrate data"""
     def __init__(self, path):
         self.file = pd.ExcelFile(path)
-        self.file_comments = self.file.parse("Comments")
-        self.file_posts = self.file.parse("Posts")
-        self.page_columns = self.__page_columns
-        self.post_columns = self.__post_columns
-        self.comment_columns = self.__comment_columns
+        self.is_right_file = False
+        if self.__validate_sheet_file():
+            self.is_right_file = True
+            self.file_comments = self.file.parse("Comments")
+            self.file_posts = self.file.parse("Posts")
+            self.page_columns = self.__page_columns
+            self.post_columns = self.__post_columns
+            self.comment_columns = self.__comment_columns
         
+    def __validate_sheet_file(self):
+        return set(["Post", "Comments"]).issubset(set(self.file.sheet_names))    
 
     def clean_dataframe(self):
         self.file_posts['message'] = self.file_posts['message'].apply(self.clean_text) 
