@@ -5,7 +5,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analisis de Sentimientos</title>
+    <title>Análisis de Sentimientos</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     </script>
     <link rel="stylesheet" href="../static/css/estilos.css" />
@@ -47,14 +47,14 @@
     <div class=' haside2' style='background: #2b7abf; color:white;'>
         <img id="imghaside2" src="../static/img/itcolima.svg">
         <div class="txthaside2">
-            <p class="textheader">Tecnologico Nacional de México Campus Colima</p>
+            <p class="textheader">Tecnológico Nacional de México Campus Colima</p>
             <p class="textheader2">Ciencia de datos Proyecto y Aplicación</p>
         </div>
     </div>
     <div class="gridprincipal">
         <div class="columna1">
             <aside class='border-0 pt-5'>
-                <p class='p-2' style='text-align:center;'>Tecnologico Nacional de México Campus Colima</p>
+                <p class='p-2' style='text-align:center;'>Tecnológico Nacional de México Campus Colima</p>
                 <img id="imgnav" src="../static/img/itcolima.svg" width="70%">
                 <p class='p-2' style='text-align:center;'>Ciencia de datos Proyecto y Aplicación</p>
             </aside>
@@ -68,12 +68,12 @@
                     <center> <img class='nube' src="../static/img/foo.png" alt=""></center>
                     <center> <img class='nube2' src="../static/img/foo1.png" alt=""></center>
                 </div><br>
-                <h2 style="text-align:center;color: #555 !important;" class='mb-4'>Apartado grafico</h2>
-                <p class='container text-secondary text-center'>En esta sección se encontrara los datos estadísticos del resultado de procesamiento de datos.</p><br>
+                <h2 style="text-align:center;color: #555 !important;" class='mb-4'>Apartado gráfico</h2>
+                <p class='container text-secondary text-center'>En esta sección se encontrarán los datos estadísticos del resultado de procesamiento de datos.</p><br>
                 <center>
                     <div class='container mb-5'>
                         <center>
-                            <span class='text-secondary'>Selecciona el filtro</span><br>
+                            <span class='text-secondary'>Seleccione el filtro</span><br>
                             <select class="chzn-select form-control mt-2 selec" multiple id='selec_candidato' data-placeholder="Selecciona filtros"></select>
                             <div id="div_boton" class='d-flex justify-content-center mt-3'><button class='bt btn border-0 mt-2' style="background: #05397b;" onclick='llamadoFiltro()'>Aplica filtro</button></div>
 
@@ -100,7 +100,7 @@
             <div class="divfoo">
                 <p class="textfoo">© 2021 Copyright: </p>
                 <a href="https://www.colima.tecnm.mx/" target="_blank">
-                    <p class="textfoo">&nbsp;Tecnologico nacional de México Campus Colima </p>
+                    <p class="textfoo">&nbsp;Tecnológico Nacional de México Campus Colima </p>
                 </a>
             </div>
         </div>
@@ -163,7 +163,7 @@ function llena_graficas(datos){
               arrG2.push(valor);
           } 
           armachart('f'+y,arrF1,arrF2,barColors,borColors,'doughnut','Sentimientos Cluster '+y)
-          armachart('g'+y,arrG1,arrG2,barColors,borColors,'bar','Generos del Cluster '+y) 
+          armachart('g'+y,arrG1,arrG2,barColors,borColors,'bar','Géneros del Cluster '+y) 
           y++;
         } 
       armachart('tc',clust,totalClust,barColors,borColors,'bar','Cantidad de elementos clusters')
