@@ -4,7 +4,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
 	<title>Análisis de Sentimientos</title>
+=======
+	<title>Analisis de Sentimientos</title>
+>>>>>>> main
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 	</script>
 	<script src="../static/js/aksFileUpload.min.js"></script>
@@ -33,27 +37,43 @@
             </div></div>
         </center>
       </div>
+<<<<<<< HEAD
       <input type="text" id='page_name' hidden="true">
+=======
+>>>>>>> main
  <!-- end-preload -->
  <div class=' haside2'style='background: #2b7abf; color:white;'>
         <img id="imghaside2" src="../static/img/itcolima.svg" >
         <div class="txthaside2"> 
+<<<<<<< HEAD
         <p class="textheader" >Tecnológico Nacional de México Campus Colima</p>
+=======
+        <p class="textheader" >Tecnologico Nacional de México Campus Colima</p>
+>>>>>>> main
         <p class="textheader2">Ciencia de datos Proyecto y Aplicación</p>
         </div>
       </div>
    <div class="gridprincipal">
      <div class="columna1">
         <aside class='border-0 pt-5'>
+<<<<<<< HEAD
          <p class='p-2'style='text-align:center;'>Tecnológico Nacional de México Campus Colima</p>
+=======
+         <p class='p-2'style='text-align:center;'>Tecnologico Nacional de México Campus Colima</p>
+>>>>>>> main
           <img  id="imgnav" src="../static/img/itcolima.svg" width="70%">
           <p class='p-2'style='text-align:center;'>Ciencia de datos Proyecto y Aplicación</p>
         </aside>
      </div>
      <div class="columna2" style="height: 100%;">
       <div class="columna2_2">
+<<<<<<< HEAD
                     <h2 style="text-align:center;color: #555 !important;" class='mb-4'>Bienvenido al sistema de análisis de sentimientos</h2>
                     <p class='container text-secondary text-center'>Esta plataforma tiene la finalidad de proporcionar al usuario la posibilidad de realizar un análisis de sentimientos a partir de documentos Excel.</p>
+=======
+                    <h2 style="text-align:center;color: #555 !important;" class='mb-4'>Bienvenido al sistema de analisis de sentimientos</h2>
+                    <p class='container text-secondary text-center'>Esta plataforma es creada con la finalidad de proporcionar al usuario la posibilidad de realizar un análisis de sentimientos a partir de documentos Excel.</p>
+>>>>>>> main
                     <div class='d-flex justify-content-center mb-4 mt-4'>
                       <img class='img pb-2' src="../static/img/img_subir.png" alt=""> 
                       <img class='img' src="../static/img/xls.png" alt="">
@@ -66,7 +86,11 @@
                     </div>
                     <center>
                       <div id="div_selec" class=' esconder  col-sm-4'>
+<<<<<<< HEAD
                         <span class='text-secondary'>Seleccione el filtro</span>
+=======
+                        <span class='text-secondary'>Selecciona el filtro</span>
+>>>>>>> main
                        
                          <select class="chzn-select form-control mt-2 selec" multiple id='selec_candidato' data-placeholder="Selecciona filtros">
                              
@@ -76,17 +100,24 @@
                     <aks-file-upload id='subidor'></aks-file-upload>
                     <p hidden id="uploadfile" type="json" name='archivos'></p>
                   <div id="div_boton" class='d-flex justify-content-center mt-3'><button class='bt btn border-0 mt-2' style="background: #05397b;" onclick='continua()'>Continuar</button></div>
+<<<<<<< HEAD
        <div class="divfoo"><p class="textfoo">© 2021 Copyright: </p><a href="https://www.colima.tecnm.mx/" target="_blank"><p class="textfoo">&nbsp;Tecnológico Nacional de México Campus Colima </p></a></div>
+=======
+       <div class="divfoo"><p class="textfoo">© 2021 Copyright: </p><a href="https://www.colima.tecnm.mx/" target="_blank"><p class="textfoo">&nbsp;Tecnologico nacional de México Campus Colima </p></a></div>
+>>>>>>> main
       </div>
   </div>
 </body>
 </html>
 <script>
+<<<<<<< HEAD
   function exitoso(msg, pagename) {
         muestra_Alert('Exito!!', msg, 1);
         document.getElementById('page_name').value = pagename
     }
 
+=======
+>>>>>>> main
    window.onload = function() {
       setTimeout(function() {
 		  $('.div-preload').attr('style', 'display:none')    
@@ -101,6 +132,7 @@
         $('#checkbox1').click()
       }, 500);
       }
+<<<<<<< HEAD
   
    llena_selec()
       
@@ -133,6 +165,30 @@
           }
            $("#selec_candidato").chosen({no_results_text: "Sin resultados para:"});
  }
+=======
+  //llena el selec de candidatos
+      let datos={{ candidato|tojson }};
+       
+       for (const [clave, valor] of Object.entries(datos)) {
+           /*  let hola = valor.split(',') */
+             
+            
+            let op;
+            for(x=0;x<valor.length;x++){
+               op=$('<option value="'+clave+'-'+valor[x]+'">'+valor[x]+'</option>')
+               $('#selec_candidato').append(op)
+            }
+               
+            
+          }
+      /* for(x=0;x<datos.candidato.length;x++){  
+        let op=$('<option value="'+datos.id[x]+'">'+datos.candidato[x]+'</option>')
+        $('#selec_candidato').append(op)
+      } */
+      
+      $("#selec_candidato").chosen({no_results_text: "Sin resultados para:"}); 
+});
+>>>>>>> main
     //cambiar el checkbox1
     function cambia_check(obj){
       if($(obj.parentNode).hasClass("off")){
@@ -195,20 +251,30 @@ function continua(){
        } 
       }
       jsonArr.push({
+<<<<<<< HEAD
             
             page_name:arrpage_name,
             kind:arrkind,
+=======
+            kind:arrkind,
+            page_name:arrpage_name,
+>>>>>>> main
             political_party:arrpolitical_party,
             region:arrregion, 
         });
         console.log(jsonArr)
+<<<<<<< HEAD
      window.open('/chart?filtro='+JSON.stringify(jsonArr),"_self");
+=======
+     window.open('/chart?filtro='+jsonArr,"_self");
+>>>>>>> main
     }else{
       muestra_Alert('Atención','Debe de seleccionar un filtro antes de continuar',5)
     }
     
   }else{
     if($(".aks-file-upload-preview").length!=0){
+<<<<<<< HEAD
       var jsonArr = [];
       let nomb=[] 
       nomb.push($("#page_name").val())
@@ -220,6 +286,9 @@ function continua(){
                   region:[], 
               });
       window.open('/chart?filtro=' + JSON.stringify(jsonArr), "_self");
+=======
+        window.open('/chart',"_self");
+>>>>>>> main
       }else{
         muestra_Alert('Atención','Debe de ingresar un documento antes de continuar',5)
       }
