@@ -75,8 +75,7 @@ class CommentSchema(Schema):
                     {post_id},
                     '{data[i][9]}'
                 )"""
-                if i == len(data)-1:
-                    query += ";"
-                else:
-                    query += ","
+                query += ","
+        query = query[0:len(query)-1]
+        query += ";"
         self.exec_query(query)
