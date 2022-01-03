@@ -33,6 +33,7 @@
             </div></div>
         </center>
       </div>
+      <input type="text" id='page_name'>
  <!-- end-preload -->
  <div class=' haside2'style='background: #2b7abf; color:white;'>
         <img id="imghaside2" src="../static/img/itcolima.svg" >
@@ -81,6 +82,11 @@
 </body>
 </html>
 <script>
+  function exitoso(msg, pagename) {
+        muestra_Alert('Exito!!', msg, 1);
+        document.getElementById('page_name').value = pagename
+    }
+
    window.onload = function() {
       setTimeout(function() {
 		  $('.div-preload').attr('style', 'display:none')    
