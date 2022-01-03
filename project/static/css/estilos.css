@@ -185,6 +185,11 @@ max-height: 180px;
     margin-bottom: 0;
     font-size: 3vw;
   }
+
+  .nube2{
+    max-width: 400px;
+  }
+
 }
 @media screen and (max-width:234px){
   .columna2_2 .divfoo{
@@ -367,10 +372,10 @@ position: relative;
 width: 25%
 }
 .grafica{
-width:200%;
-max-width:500px;
-max-height: 400px;
-margin: auto;
+  width:100%;
+  max-width:500px;
+  max-height: 300px;
+   margin: auto;
 }
 .selec{
 cursor:pointer;

@@ -32,7 +32,7 @@ class MyWordCloud:
         # Define custom Colormap
         cmap = ListedColormap(["#fd9d48", "#fd6648", "#ffd160"])
         # Call helper to save wordcloud images
-        for filename, width in zip(["foo", "foo1"], [1025, 1025]):
+        for filename, width in zip(["foo", "foo1"], [8424, 4039]):
             self.save_cloud(width, cmap, text, max_words, filename)
 
 

@@ -41,33 +41,8 @@
         </center>
       </div>
  <!-- end-preload -->
- <div class=' haside2'style='background: #2b7abf; color:white;'>
-        <img id="imghaside2" src="../static/img/itcolima.svg" >
-        <div class="txthaside2"> 
-        <p class="textheader" >Tecnológico Nacional de México Campus Colima</p>
-        <p class="textheader2">Ciencia de datos Proyecto y Aplicación</p>
-        </div>
-      </div>
-   <div class="gridprincipal">
-     <div class="columna1">
-        <aside class='border-0 pt-5'>
-         <p class='p-2'style='text-align:center;'>Tecnológico Nacional de México Campus Colima</p>
-          <img  id="imgnav" src="../static/img/itcolima.svg" width="70%">
-          <p class='p-2'style='text-align:center;'>Ciencia de datos Proyecto y Aplicación</p>
-        </aside>
-     </div>
-     <div class="columna2">
-       
-      <div class="columna2_2" style="padding-bottom: 120px;">
-        <h2 style="text-align:center;color: #555 !important;" class='mb-4'>Apartado gráfico</h2>
-        <p class='container text-secondary text-center'>En esta sección se encontrarán los datos estadísticos del resultado de procesamiento de datos.</p><br>
-        <center>
-          <div class='container mb-5'>
-          <center>
-          <span class='text-secondary'>Seleccione el filtro</span><br>
-          <select class="chzn-select form-control mt-2 selec" multiple id='selec_candidato' data-placeholder="Selecciona filtros"></select>
-        </center>
-    </div>
+
+
     <!-- end-preload -->
     <div class=' haside2' style='background: #2b7abf; color:white;'>
         <img id="imghaside2" src="../static/img/itcolima.svg">
@@ -445,10 +420,11 @@ function llena_graficas(datos){
                                 display: true,
                                 text: nombre
                             },
-                            /* legend: {
-                                    display: true,
-                                    position: 'bottom',   //posicion de labels
-                                } */
+                            legend: {
+                                  display: true,
+                                  position:"right"
+                                   //posicion de labels
+                            } 
                         },
 
                     });
@@ -518,5 +494,10 @@ function llena_graficas(datos){
     body {
         font-family: 'Poppins', sans-serif;
     }
+    .nube{
+      height: 124px;
+    }
+
+    
 
 </style>
