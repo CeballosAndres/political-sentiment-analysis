@@ -10,7 +10,6 @@ class MyWordCloud:
         self.comments = comments.dropna()
         self.c_sw = pd.read_csv('project/datamining/cstm_stopwords.csv')
         # obtain a list of not wanted words in spanish (castellanno)
-        nltk.download('stopwords')
         self.stopwords_sp = set(stopwords.words('spanish'))
         # add our custom stopwords
         self.stopwords_sp.update(self.c_sw.words)

@@ -69,8 +69,8 @@ class AppController():
         if error:
             return Exception()
         migrator.clean_dataframe()
-        #page_name = migrator.insert_page()
-        #migrator.insert_posts()
+        page_name = migrator.insert_page()
+        migrator.insert_posts()
         migrator.insert_comments()
         return page_name
 
