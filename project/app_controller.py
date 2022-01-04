@@ -1,5 +1,4 @@
 """Controller module"""
-
 import pandas as pd
 from project.db.migrator import Migrator
 from project.schemas.post_schema import PostSchema
