@@ -29,11 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `comment` (
   `id` int NOT NULL,
-<<<<<<< HEAD
   `comment_id` varchar(20) NOT NULL,
-=======
-  `comment_id` varchar(20) NOT NULL UNIQUE,
->>>>>>> main
   `profile_id` bigint(20) DEFAULT NULL,
   `from_name` varchar(500) DEFAULT NULL,
   `message` text DEFAULT NULL,

@@ -1,8 +1,4 @@
 """Controller module"""
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 import pandas as pd
 from project.db.migrator import Migrator
 from project.schemas.post_schema import PostSchema
@@ -60,7 +56,6 @@ class AppController():
                 filters[field].append(data[field])
         return filters
 
-<<<<<<< HEAD
     def insert_data_from_file(self, path):
         """Read an uploaded file and insert data form it into DB
         Args:
@@ -77,15 +72,6 @@ class AppController():
         migrator.insert_posts()
         migrator.insert_comments()
         return page_name
-=======
-    def insert_data_from_file(self):
-        """Read an uploaded file and insert data form it into DB"""
-        migrator = Migrator("project/static/04 Datos Limpios.xlsx")
-        migrator.clean_dataframe()
-        migrator.insert_page()
-        migrator.insert_posts()
-        migrator.insert_comments()
->>>>>>> main
 
     def get_algorithm_info(self, filters):
         """
@@ -119,10 +105,7 @@ class AppController():
         query = f"""SELECT 
                 c.from_name,
                 c.gender,
-<<<<<<< HEAD
                 c.message,
-=======
->>>>>>> main
                 c.created_date,
                 c.created_time,
                 c.reactions,
@@ -133,26 +116,12 @@ class AppController():
                 {self.__prepare_filters(filters, "")}
                 """
         data = self.__comment_schema.exec_query(query)
-<<<<<<< HEAD
         df = pd.DataFrame(data)
         wordcloud = MyWordCloud(df)
         wordcloud.generate_wordcloud()
         del df["message"]
         cluster = Cluster(df)
         return cluster.get_clustering(["gender", "feeling"], 4)
-=======
-        df = pd.DataFrame(columns=[
-            "from_name",
-            "gender",
-            "created_date",
-            "created_time",
-            "reactions",
-            "feeling"
-        ])
-        for resource in data:
-            df = df.append(resource, ignore_index=True)
-        return df
->>>>>>> main
 
     def __prepare_filters(self, filters, query):
         """
