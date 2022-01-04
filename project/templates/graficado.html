@@ -100,17 +100,20 @@
                     </div>
                 </center>
 
-                <canvas id="tc" class='grafica'></canvas>
-                <div class='graficas'>
-                    <canvas id="f0" class='grafica'></canvas>
-                    <canvas id="g0" class='grafica'></canvas>
-                    <canvas id="f1" class='grafica'></canvas>
-                    <canvas id="g1" class='grafica'></canvas>
-                    <canvas id="f2" class='grafica'></canvas>
-                    <canvas id="g2" class='grafica'></canvas>
-                    <canvas id="f3" class='grafica'></canvas>
-                    <canvas id="g3" class='grafica'></canvas>
-                </div>
+                <div class='grafica'>Cantidad de elementos clusters<canvas id="tc" ></canvas></div>
+           
+        <div class='graficas'>
+         
+          <div class='grafica'>Sentimientos Cluster 0<canvas id="f0" ></canvas></div>
+          <div class='grafica'>Géneros del Cluster 0<canvas id="g0" ></canvas></div>
+          <div class='grafica'>Sentimientos Cluster 1<canvas id="f1" ></canvas></div>
+          <div class='grafica'>Géneros del Cluster 1<canvas id="g1" ></canvas></div>
+          <div class='grafica'>Sentimientos Cluster 2<canvas id="f2" ></canvas></div>
+          <div class='grafica'>Géneros del Cluster 2<canvas id="g2" ></canvas></div>
+          <div class='grafica'>Sentimientos Cluster 3<canvas id="f3" ></canvas></div>
+          <div class='grafica'>Géneros del Cluster 3<canvas id="g3" ></canvas></div>
+           
+        </div>
 
             </div>
             <div class="divfoo">
@@ -178,11 +181,10 @@
                     arrG1.push(clave);
                     arrG2.push(valor);
                 }
-                armachart('f' + y, arrF1, arrF2, barColors, borColors, 'doughnut', 'Sentimientos Cluster ' + y)
-                armachart('g' + y, arrG1, arrG2, barColors, borColors, 'bar', 'Géneros del Cluster ' + y)
-                y++;
-            }
-            armachart('tc', clust, totalClust, barColors, borColors, 'bar', 'Cantidad de elementos clusters')
+                armachart('f'+x,arrF1,arrF2,barColors,borColors,'doughnut','')
+          armachart('g'+x,arrG1,arrG2,barColors,borColors,'pie','') 
+      } 
+      armachart('tc',clust,totalClust,barColors,borColors,'bar','')
             // armachart('sentimientos',clust,totalClust,barColors,borColors,'bar','Cantidad de elementos clusters')
         }
 
@@ -254,59 +256,67 @@
 
             switch (tipo) {
                 case 'bar':
-                    new Chart(div, {
-                        type: tipo,
-                        data: {
-                            label: false,
-                            labels: x,
-                            datasets: [{
-                                backgroundColor: barColors,
-                                borderColor: borColors,
-                                data: y
-                            }]
-                        },
-                        options: {
-                            plugins: {
-                                datalabels: {
-                                    display: true,
-                                    font: {
-                                        size: 18,
-                                    }
-                                },
+            new Chart(div, {
+                type: tipo,
+                data: {
+                    label: true,
+                    labels: x,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        borderColor: borColors,
+                        data: y
+                    }]
+                },
+                options: {
+                    plugins: {
+                      datalabels: {
+                        display: true,
+                        font: {
+                          size: 18,
+                        }
+                      },
+                    },
+                    legend: {
+                        display: false
+                    },
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: nombre
+                    },
+                    scales: {
+                    
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: true,
+                                /* minRotation: 75 */
                             },
-                            legend: {
-                                display: false
-                            },
-                            responsive: true,
-                            title: {
+                            scaleLabel: {
                                 display: true,
-                                text: nombre
+                                labelString: 'Clusters'
+                              },
+                            gridLines: {
+                                drawOnChartArea: false
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
                             },
-                            scales: {
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Cantidad'
+                              },
+                            gridLines: {
+                                drawOnChartArea: false
+                            }
+                        }]
+                    },
 
-                                xAxes: [{
-                                    ticks: {
-                                        autoSkip: true,
-                                        /* minRotation: 75 */
-                                    },
-                                    gridLines: {
-                                        drawOnChartArea: false
-                                    }
-                                }],
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true,
-                                    },
-                                    gridLines: {
-                                        drawOnChartArea: false
-                                    }
-                                }]
-                            },
-
-                        },
-
-                    });
-                    break
+                },
+                
+            });
+        break
                 case 'horizontalBar':
                     new Chart(div, {
                         type: tipo,
@@ -512,5 +522,9 @@
 
     .nube {
         height: 124px;
+    }
+    .grafica{
+       text-align: center;
+       color: #555 ;
     }
 </style>
