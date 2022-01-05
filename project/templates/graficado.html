@@ -161,11 +161,7 @@
         }
 
         function llamado() {
-            let datos = {
-                {
-                    dato | tojson
-                }
-            };
+            let datos = {{ datos | tojson }};
             llena_graficas(datos);
         }
 
