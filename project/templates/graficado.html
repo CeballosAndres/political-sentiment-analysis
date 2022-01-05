@@ -9,20 +9,16 @@
     </script>
     <link rel="stylesheet" href="../static/css/estilos.css" />
     <script src="../static/js/bs4-toast.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
-        </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
-        </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-piechart-outlabels">
     </script>
-    <script
-        src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js"></script>
     <!-- graficas con plotply -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js">
     </script>
@@ -85,35 +81,31 @@
                     <center> <img class='nube2' src="../static/img/foo1.png" alt=""></center>
                 </div><br>
                 <h2 style="text-align:center;color: #555 !important;" class='mb-4'>Apartado gráfico</h2>
-                <p class='container text-secondary text-center'>En esta sección se encontrarán los datos estadísticos
-                    del resultado de procesamiento de datos.</p><br>
+                <p class='container text-secondary text-center'>En esta sección se encontrarán los datos estadísticos del resultado de procesamiento de datos.</p><br>
                 <center>
                     <div class='container mb-5'>
                         <center>
                             <span class='text-secondary'>Seleccione el filtro</span><br>
-                            <select class="chzn-select form-control mt-2 selec" multiple id='selec_candidato'
-                                data-placeholder="Selecciona filtros"></select>
-                            <div id="div_boton" class='d-flex justify-content-center mt-3'><button
-                                    class='bt btn border-0 mt-2' style="background: #05397b;"
-                                    onclick='llamadoFiltro()'>Aplica filtro</button></div>
+                            <select class="chzn-select form-control mt-2 selec" multiple id='selec_candidato' data-placeholder="Selecciona filtros"></select>
+                            <div id="div_boton" class='d-flex justify-content-center mt-3'><button class='bt btn border-0 mt-2' style="background: #05397b;" onclick='llamadoFiltro()'>Aplica filtro</button></div>
                         </center>
                     </div>
                 </center>
 
-                <div class='grafica'>Cantidad de elementos clusters<canvas id="tc" ></canvas></div>
-           
-        <div class='graficas'>
-         
-          <div class='grafica'>Sentimientos Cluster 0<canvas id="f0" ></canvas></div>
-          <div class='grafica'>Géneros del Cluster 0<canvas id="g0" ></canvas></div>
-          <div class='grafica'>Sentimientos Cluster 1<canvas id="f1" ></canvas></div>
-          <div class='grafica'>Géneros del Cluster 1<canvas id="g1" ></canvas></div>
-          <div class='grafica'>Sentimientos Cluster 2<canvas id="f2" ></canvas></div>
-          <div class='grafica'>Géneros del Cluster 2<canvas id="g2" ></canvas></div>
-          <div class='grafica'>Sentimientos Cluster 3<canvas id="f3" ></canvas></div>
-          <div class='grafica'>Géneros del Cluster 3<canvas id="g3" ></canvas></div>
-           
-        </div>
+                <div class='grafica'>Cantidad de elementos clusters<canvas id="tc"></canvas></div>
+
+                <div class='graficas'>
+
+                    <div class='grafica'>Sentimientos Cluster 0<canvas id="f0"></canvas></div>
+                    <div class='grafica'>Géneros del Cluster 0<canvas id="g0"></canvas></div>
+                    <div class='grafica'>Sentimientos Cluster 1<canvas id="f1"></canvas></div>
+                    <div class='grafica'>Géneros del Cluster 1<canvas id="g1"></canvas></div>
+                    <div class='grafica'>Sentimientos Cluster 2<canvas id="f2"></canvas></div>
+                    <div class='grafica'>Géneros del Cluster 2<canvas id="g2"></canvas></div>
+                    <div class='grafica'>Sentimientos Cluster 3<canvas id="f3"></canvas></div>
+                    <div class='grafica'>Géneros del Cluster 3<canvas id="g3"></canvas></div>
+
+                </div>
 
             </div>
             <div class="divfoo">
@@ -125,9 +117,9 @@
         </div>
     </div>
     <script>
-        window.onload = function () {
+        window.onload = function() {
             // lineas de código que toma los datos y llama a la función de graficado
-            setTimeout(function () {
+            setTimeout(function() {
                 $('.div-preload').attr('style', 'display:none');
                 llamado()
 
@@ -144,7 +136,11 @@
         }
 
         function llamado() {
-            let datos = {{ dato| tojson }};
+            let datos = {
+                {
+                    dato | tojson
+                }
+            };
             llena_graficas(datos);
         }
 
@@ -171,8 +167,8 @@
                 let arrF2 = []
                 let arrG1 = []
                 let arrG2 = []
-                //console.log(datos.clusters[y].count_values[0].feeling)
-                //console.log(ob2)
+                    //console.log(datos.clusters[y].count_values[0].feeling)
+                    //console.log(ob2)
                 for (const [clave, valor] of Object.entries(obj1)) {
                     arrF1.push(clave);
                     arrF2.push(valor);
@@ -181,11 +177,12 @@
                     arrG1.push(clave);
                     arrG2.push(valor);
                 }
-                armachart('f'+x,arrF1,arrF2,barColors,borColors,'doughnut','')
-          armachart('g'+x,arrG1,arrG2,barColors,borColors,'pie','') 
-      } 
-      armachart('tc',clust,totalClust,barColors,borColors,'bar','')
-            // armachart('sentimientos',clust,totalClust,barColors,borColors,'bar','Cantidad de elementos clusters')
+                armachart('f' + y, arrF1, arrF2, barColors, borColors, 'doughnut', '')
+                armachart('g' + y, arrG1, arrG2, barColors, borColors, 'pie', '')
+                y++;
+            }
+            armachart('tc', clust, totalClust, barColors, borColors, 'bar', '')
+                // armachart('sentimientos',clust,totalClust,barColors,borColors,'bar','Cantidad de elementos clusters')
         }
 
         function consulta_ajax_grafica() {
@@ -220,8 +217,12 @@
 
         llena_selec()
             //llena el selec de candidatos
-            function llena_selec() {
-                let datos = {{ datos2| tojson }};
+        function llena_selec() {
+            let datos = {
+                {
+                    datos2 | tojson
+                }
+            };
             console.log(datos);
             let auxkind = $('<optgroup class="border-top group_selec" label="Categoría"><optgroup>')
             let auxpage_name = $('<optgroup class="border-top group_selec" label="Nombre de la Página"><optgroup>')
@@ -251,74 +252,74 @@
             });
         }
 
-        //funcion que genera las graficas 
         function armachart(div, x, y, barColors, borColors, tipo, nombre) {
 
             switch (tipo) {
                 case 'bar':
-            new Chart(div, {
-                type: tipo,
-                data: {
-                    label: true,
-                    labels: x,
-                    datasets: [{
-                        backgroundColor: barColors,
-                        borderColor: borColors,
-                        data: y
-                    }]
-                },
-                options: {
-                    plugins: {
-                      datalabels: {
-                        display: true,
-                        font: {
-                          size: 18,
-                        }
-                      },
-                    },
-                    legend: {
-                        display: false
-                    },
-                    responsive: true,
-                    title: {
-                        display: true,
-                        text: nombre
-                    },
-                    scales: {
-                    
-                        xAxes: [{
-                            ticks: {
-                                autoSkip: true,
-                                /* minRotation: 75 */
+                    new Chart(div, {
+                        type: tipo,
+                        data: {
+                            label: true,
+                            labels: x,
+                            datasets: [{
+                                backgroundColor: barColors,
+                                borderColor: borColors,
+                                data: y
+                            }]
+                        },
+                        options: {
+                            plugins: {
+                                datalabels: {
+                                    display: true,
+                                    font: {
+                                        size: 18,
+                                    }
+                                },
                             },
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Clusters'
-                              },
-                            gridLines: {
-                                drawOnChartArea: false
-                            }
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
+                            legend: {
+                                display: false
                             },
-                            scaleLabel: {
+                            responsive: true,
+                            title: {
                                 display: true,
-                                labelString: 'Cantidad'
-                              },
-                            gridLines: {
-                                drawOnChartArea: false
-                            }
-                        }]
-                    },
+                                text: nombre
+                            },
+                            scales: {
 
-                },
-                
-            });
-        break
+                                xAxes: [{
+                                    ticks: {
+                                        autoSkip: true,
+                                        /* minRotation: 75 */
+                                    },
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Clusters'
+                                    },
+                                    gridLines: {
+                                        drawOnChartArea: false
+                                    }
+                                }],
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true,
+                                    },
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Cantidad'
+                                    },
+                                    gridLines: {
+                                        drawOnChartArea: false
+                                    }
+                                }]
+                            },
+
+                        },
+
+                    });
+                    break
                 case 'horizontalBar':
                     new Chart(div, {
+
                         type: tipo,
                         data: {
                             label: false,
@@ -415,8 +416,10 @@
                     });
                     break
                 case 'doughnut':
+
                     otra(x, y, nombre)
                     new Chart(div, {
+
                         type: tipo,
                         data: {
                             labels: x,
@@ -426,10 +429,15 @@
                             }]
                         },
                         options: {
+                            layout: {
+                                padding: 18,
+
+                            },
                             plugins: {
+
                                 outlabels: {
                                     display: true,
-                                    stretch: 17,
+                                    stretch: 10,
                                     font: {
                                         resizable: true,
                                         minSize: 12,
@@ -447,7 +455,7 @@
                             legend: {
                                 display: true,
                                 position: "right"
-                                //posicion de labels
+                                    //posicion de labels
                             }
                         },
 
@@ -466,9 +474,14 @@
                             }]
                         },
                         options: {
+                            layout: {
+                                padding: 18,
+
+                            },
                             plugins: {
                                 outlabels: {
                                     display: true,
+                                    stretch: 10,
                                     font: {
                                         resizable: true,
                                         minSize: 12,
@@ -483,10 +496,10 @@
                                 display: true,
                                 text: nombre
                             },
-                            /* legend: {
-                                    display: true,
-                                    position: 'bottom',   //posicion de labels
-                                } */
+                            legend: {
+                                display: true,
+                                position: "right", //posicion de labels
+                            }
                         }
                     });
                     break
@@ -515,16 +528,16 @@
 </html>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
-
     body {
         font-family: 'Poppins', sans-serif;
     }
-
+    
     .nube {
         height: 124px;
     }
-    .grafica{
-       text-align: center;
-       color: #555 ;
+    
+    .grafica {
+        text-align: center;
+        color: #555;
     }
 </style>
