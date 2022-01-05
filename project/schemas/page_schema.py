@@ -31,7 +31,7 @@ class PageSchema(Schema):
         field = list(data.keys())[0]
         query = f"""SELECT * FROM {self.table_name}
                     WHERE {field} = '{data[field]}'"""
-        return self.exec_query(query)[0]
+        return self.exec_query(query)
 
     def insert(self, data):
         """Insert data into page"""

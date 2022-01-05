@@ -154,6 +154,11 @@ class Migrator():
         df_page = self.convert_page()
         data = df_page.iloc[0].values.tolist()
         page_schema = PageSchema()
+        page = page_schema.show({
+            "page_name": data[1]
+        })
+        if page:
+            page_schema.exec_query(f"CALL delete_all_page_data('{page[0]['page_name']}')")
         page_schema.insert(data)
         return data[1]
 
