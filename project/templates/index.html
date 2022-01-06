@@ -2,280 +2,397 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Análisis de Sentimientos</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-  </script>
-  <script src="../static/js/aksFileUpload.min.js"></script>
-  <script src="../static/js/bs4-toast.js"></script>
-  <link rel="stylesheet" href="../static/css/aksFileUpload.min.css" />
-  <link rel="stylesheet" href="../static/css/estilos.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-    integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-    crossorigin="anonymous"></script>
-  <!-- checkbox -->
-  <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
-    rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
-  <link rel="stylesheet" href="../static/css/chosen.min.css" />
-  <script src="../static/js/chosen.jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Sentimientos</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    <script src="../static/js/aksFileUpload.min.js"></script>
+    <script src="../static/js/bs4-toast.js"></script>
+    <link rel="stylesheet" href="../static/css/aksFileUpload.min.css" />
+    <link rel="stylesheet" href="../static/css/estilos.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <!-- checkbox -->
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <link rel="stylesheet" href="../static/css/chosen.min.css" />
+    <script src="../static/js/chosen.jquery.min.js"></script>
 </head>
 
 <body>
-  <!-- preload -->
-  <div class='div-preload' style='padding-top:10%;'>
-    <center>
-      <img src="../static/img/pp.svg" alt="" width='280px'> <br>
-      <div class="loadingio-spinner-interwind-trysw0yvp0p">
-        <div class="ldio-4ec34dlqlur">
-          <div>
-            <div>
-              <div>
-                <div></div>
-              </div>
-            </div>
-            <div>
-              <div>
-                <div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </center>
-  </div>
-  <input type="text" id='page_name' hidden="true">
-  <!-- end-preload -->
-  <div class=' haside2' style='background: #2b7abf; color:white;'>
-    <img id="imghaside2" src="../static/img/itcolima.svg">
-    <div class="txthaside2">
-      <p class="textheader">Tecnológico Nacional de México Campus Colima</p>
-      <p class="textheader2">Ciencia de datos Proyecto y Aplicación</p>
-    </div>
-  </div>
-  <div class="gridprincipal">
-    <div class="columna1">
-      <aside class='border-0 pt-5'>
-        <p class='p-2' style='text-align:center;'>Tecnológico Nacional de México Campus Colima</p>
-        <img id="imgnav" src="../static/img/itcolima.svg" width="70%">
-        <p class='p-2' style='text-align:center;'>Ciencia de datos Proyecto y Aplicación</p>
-      </aside>
-    </div>
-    <div class="columna2" style="height: 100%;">
-      <div class="columna2_2">
-        <h2 style="text-align:center;color: #555 !important;" class='mb-4'>Bienvenido al sistema de análisis de
-          sentimientos</h2>
-        <p class='container text-secondary text-center'>Esta plataforma tiene la finalidad de proporcionar al usuario la
-          posibilidad de realizar un análisis de sentimientos a partir de documentos Excel.</p>
-        <div class='d-flex justify-content-center mb-4 mt-4'>
-          <img class='img pb-2' src="../static/img/img_subir.png" alt="">
-          <img class='img' src="../static/img/xls.png" alt="">
-          <img class='img' src="../static/img/proceso.png" alt="">
-          <img class='img' src="../static/img/graficas.png" alt="">
-        </div>
-        <div class='d-flex justify-content-center align-items-center mb-3'>
-          <span id="texto_selec" class='text-secondary mr-3'>¿Desea utilizar los datos de la base de datos?</span>
-          <input id='checkbox1' onchange='cambia_check(this)' class='ml-3' type="checkbox" data-toggle="toggle"
-            data-on="Si" data-off="No">
-        </div>
+    <!-- preload -->
+    <div class='div-preload' style='padding-top:10%;'>
         <center>
-          <div id="div_selec" class=' esconder  col-sm-4'>
-            <span class='text-secondary'>Seleccione el filtro</span>
-
-            <select class="chzn-select form-control mt-2 selec" multiple id='selec_candidato'
-              data-placeholder="Selecciona filtros">
-
-            </select>
-          </div>
+            <img src="../static/img/pp.svg" alt="" width='280px'> <br>
+            <div class="loadingio-spinner-interwind-trysw0yvp0p">
+                <div class="ldio-4ec34dlqlur">
+                    <div>
+                        <div>
+                            <div>
+                                <div></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </center>
-        <aks-file-upload id='subidor'></aks-file-upload>
-        <p hidden id="uploadfile" type="json" name='archivos'></p>
-        <div id="div_boton" class='d-flex justify-content-center mt-3'><button class='bt btn border-0 mt-2'
-            style="background: #05397b;" onclick='continua()'>Continuar</button></div>
-        <div class="divfoo">
-          <p class="textfoo">© 2021 Copyright: </p><a href="https://www.colima.tecnm.mx/" target="_blank">
-            <p class="textfoo">&nbsp;Tecnológico Nacional de México Campus Colima </p>
-          </a>
-        </div>
-      </div>
     </div>
+    <input type="text" id='page_name' hidden="true">
+    <!-- end-preload -->
+    <div class=' haside2' style='background: #2b7abf; color:white;'>
+        <img id="imghaside2" src="../static/img/itcolima.svg">
+        <div class="txthaside2">
+            <p class="textheader">Tecnológico Nacional de México Campus Colima</p>
+            <p class="textheader2">Ciencia de datos Proyecto y Aplicación</p>
+        </div>
+    </div>
+    <div class="gridprincipal">
+        <div class="columna1">
+            <aside class='border-0 pt-5'>
+                <p class='p-2' style='text-align:center;'>Tecnológico Nacional de México Campus Colima</p>
+                <img id="imgnav" src="../static/img/itcolima.svg" width="70%">
+                <p class='p-2' style='text-align:center;'>Ciencia de datos Proyecto y Aplicación</p>
+            </aside>
+        </div>
+        <div class="columna2" style="height: 100%;">
+            <div class="columna2_2">
+                <h2 style="text-align:center;color: #555 !important;" class='mb-4'>Bienvenido al sistema de análisis de sentimientos
+                </h2>
+                <p class='container text-secondary text-center'>Esta plataforma tiene la finalidad de proporcionar al usuario la posibilidad de realizar un análisis de sentimientos a partir de documentos Excel.</p>
+                <div class='d-flex justify-content-center mb-4 mt-4'>
+                    <img class='img pb-2' src="../static/img/img_subir.png" alt="">
+                    <img class='img' src="../static/img/xls.png" alt="">
+                    <img class='img' src="../static/img/proceso.png" alt="">
+                    <img class='img' src="../static/img/graficas.png" alt="">
+                </div>
+                <div class='d-flex justify-content-center align-items-center mb-3'>
+                    <span id="texto_selec" class='text-secondary mr-3'>¿Desea utilizar los datos de la base de datos?</span>
+                    <input id='checkbox1' onchange='cambia_check(this)' class='ml-3' type="checkbox" data-toggle="toggle" data-on="Si" data-off="No">
+                </div>
+                <center>
+                    <div id="div_selec" class=' esconder  col-sm-4'>
+                        <span class='text-secondary'>Seleccione el filtro</span>
+                        <select class="chzn-select form-control mt-2 selec" multiple id='selec_candidato' data-placeholder="Selecciona filtros"></select>
+                        <div id="div_boton" class='d-flex justify-content-center mt-3'><button class='bt btn border-0 mt-2' style="background: #05397b;" onclick='continua()'>Continuar</button></div>
+                    </div>
+                </center>
+                <div id='subidor2'>
+                    <aks-file-upload id='subidor'></aks-file-upload>
+                    <div id='cargador' class='esconder justify-content-center'>
+                        <div class="loadingio-spinner-gear-ow6w8pkusy">
+                            <div class="ldio-ibegc6whqb">
+                                <div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="div_boton2" class='esconder justify-content-center mt-3' hidden><button class='bt btn border-0 mt-2' style="background: #05397b;" onclick='continua()'>Continuar</button></div>
+                </div>
+                <p hidden id="uploadfile" type="json" name='archivos'></p>
+                <div class="divfoo">
+                    <p class="textfoo">© 2021 Copyright: </p>
+                    <a href="https://www.colima.tecnm.mx/" target="_blank">
+                        <p class="textfoo">&nbsp;Tecnológico Nacional de México Campus Colima </p>
+                    </a>
+                </div>
+            </div>
+        </div>
 </body>
 
 </html>
 <script>
-  function exitoso(msg, pagename) {
-    muestra_Alert('Éxito!!', msg, 1);
-    document.getElementById('page_name').value = pagename
-  }
+    window.onerror = function(error) {
+        muestra_Alert('opps!!', 'Ocurrio un error vuelve a cargar la página', 5)
+    };
 
-  window.onload = function () {
-    setTimeout(function () {
-      $('.div-preload').attr('style', 'display:none')
-    }, 1000);
-  }
-  $(document).ready(function () {
-
-    //valida que el checkbox 
-    if ($('#checkbox1').prop("checked") == true) {
-      setTimeout(function () {
-        $('#checkbox1').prop("checked", false)
-        $('#checkbox1').click()
-      }, 500);
+    function exitoso(msg, pagename) {
+        muestra_Alert('Éxito!!', msg, 1);
+        document.getElementById('page_name').value = pagename
+          $('#cargador').addClass('esconder')
+          $('#cargador').removeClass('d-flex')
+          $('#div_boton2').removeClass('esconder')
+          $('#div_boton2').addClass('d-flex')
     }
 
-    llena_selec()
+    window.onload = function() {
+        setTimeout(function() {
+            $('.div-preload').attr('style', 'display:none')
+        }, 1000);
+        //codigo para la visualizacion de carga
+        $('.aks-file-upload-content').on('DOMSubtreeModified', function(e) {
+            if ($(".aks-file-upload-preview").length != 0) {
+                console.log('hola')
+                $('#cargador').addClass('d-flex')
+                $('#cargador').removeClass('esconder')
+            }
+        });
+    }
 
-  });
+    $(document).ready(function() {
 
-  // llena el selec de candidatos
-  function llena_selec() {
-    let datos = {{ candidato| tojson }};
-    let auxkind = $('<optgroup class="border-top group_selec" label="Categoría"><optgroup>');
-    let auxpage_name = $('<optgroup class="border-top group_selec" label="Nombre de la Página"><optgroup>');
-    let auxpolitical_party = $('<optgroup class="border-top group_selec" label="Partido político"><optgroup>');
-    let auxregion = $('<optgroup class="border-top group_selec" label="Región"><optgroup>');
-    for (const [clave, valor] of Object.entries(datos)) {
-      /*  let hola = valor.split(',') */
-      let op;
-
-      for (x = 0; x < valor.length; x++) {
-        let aux=clave+','+valor[x]
-
-        op=$("<option value='"+aux+"'>"+valor[x]+"</option>")
-        if (clave == 'kind') {
-          auxkind.append(op)
-        } else if (clave == 'page_name') {
-          auxpage_name.append(op)
-        } else if (clave == 'political_party') {
-          auxpolitical_party.append(op)
-        } else if (clave == 'region') {
-          auxregion.append(op)
+        //valida que el checkbox 
+        if ($('#checkbox1').prop("checked") == true) {
+            setTimeout(function() {
+                $('#checkbox1').prop("checked", false)
+                $('#checkbox1').click()
+            }, 500);
         }
-      }
-      $('#selec_candidato').append([auxkind, auxpage_name, auxpolitical_party, auxregion])
-    }
-    $("#selec_candidato").chosen({ no_results_text: "Sin resultados para:" });
- }
-  //cambiar el checkbox1
-  function cambia_check(obj) {
-    if ($(obj.parentNode).hasClass("off")) {
-      $('#div_selec').addClass('esconder')
-      $('#subidor').removeClass('esconder')
-    } else {
-      $('#subidor').addClass('esconder')
-      $('#div_selec').removeClass('esconder')
-    }
-  }
-  // Función que inicia el upload de archivos 
-  $(function () {
-    $("aks-file-upload").aksFileUpload({
-      fileUpload: "#uploadfile",
-      dragDrop: true,
-      fileType: ['xlsx'],
-      maxSize: "90 GB",
-      multiple: false,
-      maxFile: 50,
-      label: "Arrastra y suelta tus archivos o seleccionalo dando click aquí",
-      fileTypeError: "Es un tipo de archivo no aceptado.",
-      ajaxUpload: true,
-      ajax: {
-        directlyLoad: true,
-        url: '/upload',
-        type: "POST",
-        data: "formData",
-        contentType: false,
-        processData: false,
-        cache: false,
-        async: true,
-        enctype: "multipart/form-data",
-        success: function (response) {
-          /*  console.log(response);
-           console.log('holl'); */
-        }
-      },
+
+        llena_selec()
+
     });
-  });
-  // función que valida para poder entrar a la url de gráficas
-  function continua() {
-    if ($('#div_selec').is(":visible")) {
-      if ($('#selec_candidato').val() != '') {
-        let auxiliar_selec = $('#selec_candidato').val();
-        var jsonArr = [];
-        let arrkind = [];
-        let arrpage_name = [];
-        let arrpolitical_party = [];
-        let arrregion = [];
-        for (x = 0; x < $('#selec_candidato').val().length; x++) {
 
-          if(auxiliar_selec[x].split(',')[0]=='kind'){
-              arrkind.push(auxiliar_selec[x].split(',')[1])
-          }else if(auxiliar_selec[x].split(',')[0]=='page_name'){
-              arrpage_name.push(auxiliar_selec[x].split(',')[1])
-          }else if(auxiliar_selec[x].split(',')[0]=='political_party'){
-              arrpolitical_party.push(auxiliar_selec[x].split(',')[1])
-          }else if(auxiliar_selec[x].split(',')[0]=='region'){
-              arrregion.push(auxiliar_selec[x].split(',')[1])
-          }
+    // llena el selec de candidatos
+    function llena_selec() {
+        let datos = {{ candidato | tojson }};
+        let auxkind = $('<optgroup class="border-top group_selec" label="Categoría"><optgroup>');
+        let auxpage_name = $('<optgroup class="border-top group_selec" label="Nombre de la Página"><optgroup>');
+        let auxpolitical_party = $('<optgroup class="border-top group_selec" label="Partido político"><optgroup>');
+        let auxregion = $('<optgroup class="border-top group_selec" label="Región"><optgroup>');
+        for (const [clave, valor] of Object.entries(datos)) {
+            /*  let hola = valor.split(',') */
+            let op;
+
+            for (x = 0; x < valor.length; x++) {
+                let aux = clave + ',' + valor[x]
+
+                op = $("<option value='" + aux + "'>" + valor[x] + "</option>")
+                if (clave == 'kind') {
+                    auxkind.append(op)
+                } else if (clave == 'page_name') {
+                    auxpage_name.append(op)
+                } else if (clave == 'political_party') {
+                    auxpolitical_party.append(op)
+                } else if (clave == 'region') {
+                    auxregion.append(op)
+                }
+            }
+            $('#selec_candidato').append([auxkind, auxpage_name, auxpolitical_party, auxregion])
         }
-        jsonArr.push({
-
-          page_name: arrpage_name,
-          kind: arrkind,
-          political_party: arrpolitical_party,
-          region: arrregion,
+        $("#selec_candidato").chosen({
+            no_results_text: "Sin resultados para:"
         });
-        console.log(jsonArr)
-        window.open('/chart?filtro=' + JSON.stringify(jsonArr), "_self");
-      } else {
-        muestra_Alert('Atención', 'Debe de seleccionar un filtro antes de continuar', 5)
-      }
-
-    } else {
-      if ($(".aks-file-upload-preview").length != 0) {
-        var jsonArr = [];
-        let nomb = []
-        nomb.push($("#page_name").val())
-        console.log(nomb)
-        jsonArr.push({
-          page_name: nomb,
-          kind: [],
-          political_party: [],
-          region: [],
+    }
+    //cambiar el checkbox1
+    function cambia_check(obj) {
+        if ($(obj.parentNode).hasClass("off")) {
+            $('#div_selec').addClass('esconder')
+            $('#subidor2').removeClass('esconder')
+            if ($("#page_name").val() != '') {
+                $('#div_boton2').removeClass('esconder')
+                $('#div_boton2').addClass('d-flex')
+            } else {
+                $('#div_boton2').removeClass('d-flex')
+                $('#div_boton2').addClass('esconder')
+            }
+        } else {
+            $('#subidor2').addClass('esconder')
+            $('#div_selec').removeClass('esconder')
+        }
+    }
+    // Función que inicia el upload de archivos 
+    $(function() {
+        $("aks-file-upload").aksFileUpload({
+            fileUpload: "#uploadfile",
+            dragDrop: true,
+            fileType: ['xlsx'],
+            maxSize: "90 GB",
+            multiple: false,
+            maxFile: 50,
+            label: "Arrastra y suelta tus archivos o seleccionalo dando click aquí",
+            fileTypeError: "Es un tipo de archivo no aceptado.",
+            ajaxUpload: true,
+            ajax: {
+                directlyLoad: true,
+                url: '/upload',
+                type: "POST",
+                data: "formData",
+                contentType: false,
+                processData: false,
+                cache: false,
+                async: true,
+                enctype: "multipart/form-data",
+                success: function(response) {
+                    /*  console.log(response);
+                     console.log('holl'); */
+                }
+            },
         });
-        window.open('/chart?filtro=' + JSON.stringify(jsonArr), "_self");
-      } else {
-        muestra_Alert('Atención', 'Debe de ingresar un documento antes de continuar', 5)
-      }
+    });
+    // función que valida para poder entrar a la url de gráficas
+    function continua() {
+        if ($('#div_selec').is(":visible")) {
+            if ($('#selec_candidato').val() != '') {
+                let auxiliar_selec = $('#selec_candidato').val();
+                var jsonArr = [];
+                let arrkind = [];
+                let arrpage_name = [];
+                let arrpolitical_party = [];
+                let arrregion = [];
+                for (x = 0; x < $('#selec_candidato').val().length; x++) {
+
+                    if (auxiliar_selec[x].split(',')[0] == 'kind') {
+                        arrkind.push(auxiliar_selec[x].split(',')[1])
+                    } else if (auxiliar_selec[x].split(',')[0] == 'page_name') {
+                        arrpage_name.push(auxiliar_selec[x].split(',')[1])
+                    } else if (auxiliar_selec[x].split(',')[0] == 'political_party') {
+                        arrpolitical_party.push(auxiliar_selec[x].split(',')[1])
+                    } else if (auxiliar_selec[x].split(',')[0] == 'region') {
+                        arrregion.push(auxiliar_selec[x].split(',')[1])
+                    }
+                }
+                jsonArr.push({
+
+                    page_name: arrpage_name,
+                    kind: arrkind,
+                    political_party: arrpolitical_party,
+                    region: arrregion,
+                });
+                console.log(jsonArr)
+                $('.div-preload').attr('style', 'display:inline;padding-top:10%;')
+                window.open('/chart?filtro=' + JSON.stringify(jsonArr), "_self");
+            } else {
+                muestra_Alert('Atención', 'Debe de seleccionar un filtro antes de continuar', 5)
+            }
+
+        } else {
+            if ($(".aks-file-upload-preview").length != 0) {
+                var jsonArr = [];
+                let nomb = []
+                nomb.push($("#page_name").val())
+                console.log(nomb)
+                jsonArr.push({
+                    page_name: nomb,
+                    kind: [],
+                    political_party: [],
+                    region: [],
+                });
+                $('.div-preload').attr('style', 'display:inline;padding-top:10%;')
+                window.open('/chart?filtro=' + JSON.stringify(jsonArr), "_self");
+            } else {
+                muestra_Alert('Atención', 'Debe de ingresar un documento antes de continuar', 5)
+            }
+        }
     }
-  }
-  // función que retona alertas del sistema
-  function muestra_Alert(title, msj, tipo) {
-    let duracion = 2000;
-    if (tipo == 1) {
-      bs4Toast.success(title, msj, { delay: duracion, })
-    } else if (tipo == 2) {
-      bs4Toast.primary(title, msj, { delay: duracion, })
-    } else if (tipo == 3) {
-      bs4Toast.warning(title, msj, { delay: duracion, })
-    } else {
-      bs4Toast.error(title, msj, { delay: duracion, })
+    // función que retona alertas del sistema
+    function muestra_Alert(title, msj, tipo) {
+        let duracion = 2000;
+        if (tipo == 1) {
+            bs4Toast.success(title, msj, {
+                delay: duracion,
+            })
+        } else if (tipo == 2) {
+            bs4Toast.primary(title, msj, {
+                delay: duracion,
+            })
+        } else if (tipo == 3) {
+            bs4Toast.warning(title, msj, {
+                delay: duracion,
+            })
+        } else {
+            bs4Toast.error(title, msj, {
+                delay: duracion,
+            })
+        }
     }
-  }
 </script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    #selec_candidato_chosen {
+        width: 100% !important;
+    }
+</style>
 
-  body {
-    font-family: 'Poppins', sans-serif;
-  }
-
-  #selec_candidato_chosen {
-    width: 100% !important;
-  }
+<style type="text/css">
+    @keyframes ldio-ibegc6whqb {
+        0% {
+            transform: rotate(0deg)
+        }
+        50% {
+            transform: rotate(22.5deg)
+        }
+        100% {
+            transform: rotate(45deg)
+        }
+    }
+    
+    .ldio-ibegc6whqb>div {
+        transform-origin: 50px 50px;
+        animation: ldio-ibegc6whqb 0.5681818181818182s infinite linear;
+    }
+    
+    .ldio-ibegc6whqb>div div {
+        position: absolute;
+        width: 11px;
+        height: 76px;
+        background: #93dbe9;
+        left: 50px;
+        top: 50px;
+        transform: translate(-50%, -50%);
+    }
+    
+    .ldio-ibegc6whqb>div div:nth-child(1) {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+    
+    .ldio-ibegc6whqb>div div:nth-child(6) {
+        width: 40px;
+        height: 40px;
+        background: #ffffff;
+        border-radius: 50%;
+    }
+    
+    .ldio-ibegc6whqb>div div:nth-child(3) {
+        transform: translate(-50%, -50%) rotate(45deg)
+    }
+    
+    .ldio-ibegc6whqb>div div:nth-child(4) {
+        transform: translate(-50%, -50%) rotate(90deg)
+    }
+    
+    .ldio-ibegc6whqb>div div:nth-child(5) {
+        transform: translate(-50%, -50%) rotate(135deg)
+    }
+    
+    .loadingio-spinner-gear-ow6w8pkusy {
+        width: 54px;
+        height: 54px;
+        display: inline-block;
+        overflow: hidden;
+        background: none;
+    }
+    
+    .ldio-ibegc6whqb {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform: translateZ(0) scale(0.54);
+        backface-visibility: hidden;
+        transform-origin: 0 0;
+        /* see note above */
+    }
+    
+    .ldio-ibegc6whqb div {
+        box-sizing: content-box;
+    }
+    /* generated by https://loading.io/ */
 </style>

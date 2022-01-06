@@ -78,7 +78,7 @@
                         <img class="nube2" src="../static/img/foo1.png" alt="" />
                     </center>
                 </div>
-                <br />
+                <br /><div style="height: 40px;"><a href="/" class="back"><img src="../static/img/fi.png"> Regresar</a></div>
                 <h2 style="text-align: center; color: #555 !important" class="mb-4">
                     Apartado gráfico
                 </h2>
@@ -232,7 +232,7 @@
                 region: arrregion,
             });
             //console.log(jsonArr)
-
+            $('.div-preload').attr('style', 'display:inline;padding-top:10%;')  
             window.open('/chart?filtro=' + JSON.stringify(jsonArr), "_self");
         }
 
@@ -557,5 +557,20 @@
     .grafica {
         text-align: center;
         color: #555;
+    }
+    .back {
+      text-decoration: none;
+      margin-left:1em;
+      height:40px;
+    }
+    .back img{
+      width: 35px;
+      cursor:pointer;
+    }
+    .back:hover img{
+      width: 37px;
+    }
+    .back:focus img{
+      width: 35px;
     }
 </style>
