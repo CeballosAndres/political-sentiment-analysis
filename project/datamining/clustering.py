@@ -1,21 +1,27 @@
-from re import I
 import pandas as pd
-import numpy as np
-from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn.cluster import KMeans, AgglomerativeClustering
-
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
 
 class Cluster:
     def __init__(self, data=None):
         self.data = data
 
+
     def categorical_to_numerical(self, data):
-        s = (data.dtypes == 'object')
-        object_cols = list(s[s].index)
-        # Use encoder for categorical datatypes
-        encoder = LabelEncoder()
-        for i in object_cols:
-            data[i] = data[[i]].apply(encoder.fit_transform)
+        # Generate a mapping of categorical values
+        # Associating them with numerical values
+        data_map = {"gender": {"H": 0,
+                               "M": 1,
+                               "I": 2,
+                               "O": 3
+                               },
+                    "feeling": {"muy negativo": -2,
+                                "negativo": -1,
+                                "neutro": 0,
+                                "positivo": 1,
+                                "muy positivo": 2}}
+        # Execute a replace operation to convert the data
+        data = data.replace(data_map)
         return data
 
     def scaler_values(self, data):
@@ -30,10 +36,10 @@ class Cluster:
         data = self.data.filter(targets, axis=1)
         data = self.categorical_to_numerical(data)
         data = self.scaler_values(data)
-        # Initiating the Agglomerative Clustering model
-        agg_cluster = AgglomerativeClustering(n_clusters=n_clusters)
+        # Initiating the KMeans model
+        kmeans_cluster = KMeans(n_clusters=n_clusters)
         # fit model and predict clusters
-        cluster_values = agg_cluster.fit_predict(data)
+        cluster_values = kmeans_cluster.fit_predict(data)
         self.data["clusters"] = cluster_values
         clusters = self.__prepare_output_clusters()
         return clusters
@@ -64,13 +70,12 @@ class Cluster:
                 ]
             }
             output['clusters'].append(data_cluster)
-
         return output
 
 
 if __name__ == "__main__":
     import json
-    path = 'project/static/04 Datos Limpios.xlsx'
+    path = '../static/04 Datos Limpios.xlsx'
     df = pd.read_excel(path, sheet_name='Comments')
     clu = Cluster(df)
     clusters = clu.get_clustering(['feeling', 'reactions'], 4)
